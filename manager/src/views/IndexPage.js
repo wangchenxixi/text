@@ -1,29 +1,56 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
-
+import { Button, Checkbox, Input, Icon, Tooltip } from "antd";
+import "antd/dist/antd.css";
+import {Link} from 'dva/router';
 function IndexPage() {
   return (
     <div className={styles.normal}>
+      <span>1111</span>
       <div className={styles.form}>
         <div className={styles.user}>
-          <img src="../../images/user.png" alt="" />
-          <input type="text" placeholder="请输入用户名" />
+          <Input
+            placeholder="请输入用户名"
+            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            suffix={
+              <Tooltip title="Extra information">
+                <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+              </Tooltip>
+            }
+          />
+
         </div>
         <div className={styles.user}>
-          <img src="../../images/pwd.png" alt="" />
-          <input type="password" placeholder="请输入用户密码" />
+
+          <Input
+            placeholder="请输入密码"
+            prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            suffix={
+              <Tooltip title="Extra information">
+                <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+              </Tooltip>
+            }
+          />
         </div>
         <div className={styles.pwd}>
-          <p className={styles.check}><input type="checkbox" /> <span>记住密码</span></p>
+          <p className={styles.check}><Checkbox onChange={onChange}>记住密码</Checkbox></p>
           <p className={styles.foget}>忘记密码</p>
         </div>
-        <div className={styles.btn}><button>登录</button></div>
+       
+        <div className={styles.btn}>  <Button type="primary" block onClick={onClick} >
+        <Link to="/Products.js">登录</Link>  登录
+    </Button></div>
       </div>
     </div>
   );
 }
-
+function onChange(e) {
+  console.log(`checked = ${e.target.checked}`);
+};
+function onClick(e) {
+  
+};
 IndexPage.propTypes = {
 };
 
