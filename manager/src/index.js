@@ -1,10 +1,5 @@
 import dva from 'dva';
 import './index.css';
-import React from "react";
-import ReactDOM from "react-dom";
-import { version, Button } from "antd";
-import "antd/dist/antd.css";
-import "./index.css";
 
 
 // 1. Initialize 
@@ -14,7 +9,7 @@ const app = dva();
 // app.use({});
 
 // 3. Model
- app.model(require('./models/user').default);
+app.model(require('./models/user').default);
 
 // 4. Router
 app.router(require('./router').default);
