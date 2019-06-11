@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import styles from './IndexPage.css';
 import { Button, Checkbox, Input, Icon, Tooltip } from "antd";
 import "antd/dist/antd.css";
-import {Link} from 'dva/router';
 function IndexPage() {
   return (
     <div className={styles.normal}>
@@ -38,8 +37,8 @@ function IndexPage() {
           <p className={styles.foget}>忘记密码</p>
         </div>
        
-        <div className={styles.btn}>  <Button type="primary" block onClick={onClick} >
-        <Link to="/Products.js">登录</Link>  登录
+        <div className={styles.btn}>  <Button type="primary" block onClick={click=>window.location.href="http://localhost:8000/#/home"} >
+         登录
     </Button></div>
       </div>
     </div>
@@ -49,9 +48,11 @@ function onChange(e) {
   console.log(`checked = ${e.target.checked}`);
 };
 function onClick(e) {
-  
+
+  console.log(e.target)
 };
 IndexPage.propTypes = {
 };
 
 export default connect()(IndexPage);
+
