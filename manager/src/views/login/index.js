@@ -27,7 +27,9 @@ let handleSubmit = e => {
 };
 //表单验证
 const { getFieldDecorator } = props.form;
-return <Form onSubmit={handleSubmit} className="login-form">
+return <div className="nomal">
+    <div className="loginbox">
+    <Form onSubmit={handleSubmit} className="login-form">
     <Form.Item>
         {getFieldDecorator('username', {
             validateTrigger:"onBlur",
@@ -63,8 +65,12 @@ return <Form onSubmit={handleSubmit} className="login-form">
         </Button>
         Or <a href="">register now!</a>
     </Form.Item>
-</Form>;
+</Form>
+</div>
+</div>;
 };
+
+
     LoginPage.prototype={
 
     };

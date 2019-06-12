@@ -8,7 +8,7 @@ export default {
     effects: {
         *login({ payload }, { call, put }) {
             console.log('payload..', payload, login);
-            let data = yield call(login);
+            let data = yield call(login,payload);
             console.log("data...", data)
         },
         *fetch({ payload }, { call, put }) {
