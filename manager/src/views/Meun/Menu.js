@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Meun.css';
 import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
-import MenuView from '@/components/Menu.js'
+import MenuView from '@/components/menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
 import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
 import QuestionsSee from './questionsManagement/QuestionsSee/QuestionsSee'
