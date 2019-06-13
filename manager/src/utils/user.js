@@ -1,12 +1,14 @@
 import Cookie from 'js-cookie';
 
 const key = 'authorization';
+
 // 获取token
 export function getToken(){
-  return Cookie.get(key)
+    return Cookie.get(key);
 }
 
 // 设置token
-export function setToken(value){
-  Cookie.set(key, value, {expires: 7})
+export function setToken(val){
+    // expires 设置有效期7天
+    Cookie.set(key, val, { expires: 7 })
 }
