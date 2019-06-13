@@ -1,21 +1,34 @@
-import axios from "axios";
-import { promises } from "fs";
-const service=axios.create({
-  baseURL:'http://169.254.12.77:7001/',
-  timeout:5000
+import axios from 'axios'
+import {getToken} from '../utils/user'
+
+// create an axios instance
+const service = axios.create({
+  baseURL: 'http://169.254.78.4:7001/',
+  // withCredentials: true, // 跨域请求时发送 cookies
+  timeout: 5000 // request timeout
 })
+
+// request interceptor
 service.interceptors.request.use(
-  config=>{
+  config => {
+    // 判断是否有登陆态
+    if (getToken()) {
+      // 让每个请求携带authorization
+      config.headers['authorization'] = getToken()
+    }
     return config
   },
-  error=>{
+  error => {
     return Promise.reject(error)
   }
 )
+
+// response interceptor
 service.interceptors.response.use(
-  response=>response.data,
-  error=>{
-    return promises.reject(error)
+  response => response.data,
+  error => {
+    return Promise.reject(error)
   }
 )
+
 export default service
