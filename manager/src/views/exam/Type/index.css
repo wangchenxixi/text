@@ -1,0 +1,33 @@
+.box{
+    width: 100%;
+    padding: 20px;
+}
+.p{
+    height: 30px;
+}
+
+
+.wrap{
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    height: 120px;
+}
+
+
+.nav{
+    float: left;
+    width: 300px;
+    height: 60px;line-height: 60px
+}
+.nav p{
+    float: left;
+}
+.more{
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    margin-top: 40px;
+    padding: 20px
+}

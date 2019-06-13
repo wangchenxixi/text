@@ -12,7 +12,7 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         // 判断是否有登录态
-        if(getToken()){
+        if (getToken()) {
             // 让每个请求者都携带token
             config.headers['authorization'] = getToken()
         }
