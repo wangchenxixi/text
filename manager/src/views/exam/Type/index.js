@@ -9,7 +9,17 @@ const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender
 function handleChange(value) {
     console.log(`selected ${value}`);
 }
+
+
 class Look extends Component {
+    constructor(props) {
+        super(props);
+        props.subjectType1();
+        props.examType1();
+        props.exam22();
+        props.Allquestions();
+        console.log("props.....", this.props)
+    }
     state = {
         initLoading: true,
         loading: false,
@@ -17,6 +27,7 @@ class Look extends Component {
         list: [],
     };
     componentDidMount() {
+
         this.getData(res => {
             this.setState({
                 initLoading: false,
@@ -34,7 +45,7 @@ class Look extends Component {
             contentType: 'application/json',
             success: res => {
                 callback(res);
-            },
+            }
         });
     };
 
@@ -52,9 +63,7 @@ class Look extends Component {
                     loading: false,
                 },
                 () => {
-                    // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                    // In real scene, you can using public method of react-virtualized:
-                    // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+
                     window.dispatchEvent(new Event('resize'));
                 },
             );
@@ -83,21 +92,25 @@ class Look extends Component {
                     <div className={styles.nav}>  <p>课程类型</p>
                         <div className={styles.select}>
                             <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
-                                <Option value="jack">Jack</Option>
-                                <Option value="lucy">Lucy</Option>
 
-                                <Option value="Yiminghe">yiminghe</Option>
+{
+    this.props.typeList.map(item=>{
+        return <Option value={item.questions_type_text}>{item.questions_type_text}</Option>
+    })
+}
+
                             </Select>
                         </div>
                     </div>
 
-                    <div className={styles.nav}>  <p>课程类型</p>
+                    <div className={styles.nav}>  <p>题目类型</p>
                         <div className={styles.select}>
-                            <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
-                                <Option value="jack">Jack</Option>
-                                <Option value="lucy">Lucy</Option>
-
-                                <Option value="Yiminghe">yiminghe</Option>
+                            <Select  style={{ width: 120 }} onChange={handleChange}>
+                                {
+                                this.props.typeList.map(item=>{
+                                    return <Option value={item.questions_type_text}>{item.questions_type_text}</Option>
+                                })
+                            }
                             </Select>
                         </div>
                     </div>
@@ -136,21 +149,39 @@ class Look extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
-        ...state.user
+        ...state.exam
     }
 }
 
 const mapDisaptchToProps = dispatch => {
     return {
-        exam(payload) {
+        exam22() {
             dispatch({
-                type: 'exam/getQuestionsType',
-                payload
+                type: 'exam/getQuestionsType'
             })
-        }
+            
+        },
+        subjectType1(payload) {
+            dispatch({
+                type: 'questions/subjectType'
+            })
+
+        },
+        examType1(payload) {
+            dispatch({
+                type: 'questions/examType'
+            })
+
+        },
+        Allquestions(payload) {
+            dispatch({
+                type: 'questions/getAllquestions'
+            })
+
+        },
+        
     }
 }
 
-export default connect(mapStateToProps, mapDisaptchToProps)((Look))
+export default connect(mapStateToProps, mapDisaptchToProps)(Look)

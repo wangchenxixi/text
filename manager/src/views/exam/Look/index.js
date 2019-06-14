@@ -1,62 +1,69 @@
-import React, { Component } from 'react';
+import React, { Component,useEffect } from 'react';
 import styles from "./index.css";
-import { Button, Table } from 'antd';
-const columns = [
-  {
-    title: '类型ID',
-    dataIndex: 'name',
-    key: 'name',
-    render: text => <a>{text}</a>,
-  },
-  {
-    title: '类型名称',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: '操作',
-    dataIndex: 'address',
-    key: 'address',
-  }
-];
+import { Button, Table, Modal, Input } from 'antd';
+import { connect } from 'dva';
+const confirm = Modal.confirm;
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
-class examType extends Component {
+function showConfirm() {
+  confirm({
+    title: <input placeholder="请输入类型名称" />,
+    onOk() {
+      return new Promise((resolve, reject) => {
+        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+      }).catch(() => console.log('Oops errors!'));
+    },
+    onCancel() { },
+  });
+}
 
-  render() {
+function Look(props) {
+  useEffect(()=>{
+    console.log(props)
+  },[])
+    const columns = [
+      {
+        title: '类型ID',
+        dataIndex: 'questions_type_id'
+      },
+      {
+        title: '类型名称',
+        dataIndex: 'questions_type_text'
+      },
+      {
+        title: '操作',
+        dataIndex: 'address',
+        key: 'address',
+      }
+    ];
     return (
+
       <div className={styles.box}>
         <p className={styles.p}> 试题分类</p>
         <div className={styles.wrap}>
-          <Button type="primary">+添加试题</Button>
+          <Button onClick={showConfirm}>+添加试题</Button>
           <div className={styles.type}>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={props.typeList} />
           </div>
         </div>
+
       </div>
     )
+  
+
+}
+
+const mapStateToProps = state => {
+  return {
+    ...state.exam
   }
 }
-export default examType
+const mapDisaptchToProps = dispatch => {
+  return {
+    exam() {
+      dispatch({
+        type: 'questions/Allquestions'
+      })
+    }
+  }
+}
+export default connect(mapStateToProps, mapDisaptchToProps)(Look)

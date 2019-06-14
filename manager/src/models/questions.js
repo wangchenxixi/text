@@ -1,4 +1,4 @@
-import {add,examType,subjectType,getQuestionsType} from '@/services'
+import { add, examType, subjectType, getQuestionsType,getAllquestions} from '@/services'
 
 export default {
     // 命名空间
@@ -8,7 +8,8 @@ export default {
     state: {
         examTypeData: [],
         subjectTypeData: [],
-        questionsTypeData: []
+        questionsTypeData: [],
+        AllquestionsData:[]
     },
 
     // 订阅路由跳转
@@ -23,61 +24,70 @@ export default {
     // 异步操作
     effects: {
         // 添加试题
-        *add({payload},{call,put}){
-            console.log('payload...',payload)
-            // let data = yield call(add,payload)
-            // console.log('data...',data)
-            
+        *add({ payload }, { call, put }) {
+            console.log('payload...', payload)
+            let data = yield call(add,payload)
         },
         // 获取考试类型
-        *examType({payload},{call,put}){
+        *examType({ payload }, { call, put }) {
             let data = yield call(examType)
-            // console.log('data...',data)
-            yield put({ 
-                type: 'getExamType' ,
+            yield put({
+                type: 'getExamType',
                 action: data.data
             });
         },
         // 获取课程类型
-        *subjectType({payload},{call,put}){
+        *subjectType({ payload }, { call, put }) {
             let data = yield call(subjectType)
-            console.log('data...',data)
-            yield put({ 
-                type: 'getSubjectType' ,
+            yield put({
+                type: 'getSubjectType',
                 action: data.data
             });
         },
         // 获取题目类型
-        *questionsType({payload},{call,put}){
+        *questionsType({ payload }, { call, put }) {
             let data = yield call(getQuestionsType)
-            console.log('data...',data)
-            yield put({ 
-                type: 'getQuestionsType' ,
+            console.log('data...', data)
+            yield put({
+                type: 'getQuestionsType',
                 action: data.data
             });
         },
+        *Allquestions({ payload }, { call, put }) {
+            let data = yield call(getAllquestions)
+            console.log('data...', data)
+            yield put({
+                type: 'getAllquestions',
+                action: data.data
+            });
+        }
     },
 
     // 同步操作
     reducers: {
-        getExamType(state, {action}) {
+        getExamType(state, { action }) {
             return {
                 ...state,
                 examTypeData: action
             };
         },
-        getSubjectType(state, {action}){
+        getSubjectType(state, { action }) {
             return {
                 ...state,
                 subjectTypeData: action
             };
         },
-        getQuestionsType(state, {action}){
+        getQuestionsType(state, { action }) {
             return {
                 ...state,
                 questionsTypeData: action
             };
         },
-
+        getAllquestions(state, { action }) {
+            return {
+                ...state,
+                AllquestionsData: action
+            };
+        },
     },
 };

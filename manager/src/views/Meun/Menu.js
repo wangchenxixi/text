@@ -8,6 +8,7 @@ import Add from "../exam/Add"
 import Type from "../exam/Type"
 import Look from "../exam/Look"
 function ExaminationMenu(){
+    
     const menu = (
         <Menu>
             <Menu.Item key="1">个人中心</Menu.Item>

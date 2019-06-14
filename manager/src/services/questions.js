@@ -32,3 +32,9 @@ export function getQuestionsType(){
         method:'GET'
     })
 }
+export function Allquestions(){
+    return request({
+        url:'/exam/questions/new',
+        method:'GET'
+    })
+}
