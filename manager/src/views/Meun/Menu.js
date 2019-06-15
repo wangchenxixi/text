@@ -6,9 +6,11 @@ import MenuView from '@/components/menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
 import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
 import QuestionsSee from './questionsManagement/QuestionsSee/QuestionsSee'
+import QuestionDetail from './questionsManagement/questionDetail/questionDetail';
+import QuestionsEdit from './questionsManagement/questionsEdit/questionsEdit';
 
 function ExaminationMenu(){
-    const menu = (
+    let menu = (
         <Menu>
             <Menu.Item key="1">个人中心</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
@@ -21,12 +23,12 @@ function ExaminationMenu(){
         <Layout className={styles.wrap} style={{flexDirection:"column"}}>
             <Header className={styles.header} >
                 <div className={styles.headerTop}>
-                    <img className={styles.headerImg} src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" />
+                    <img className={styles.headerImg} src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt=""/>
                     <div className={styles.headerBottom}>
                         {
                             <Dropdown overlay={menu}>
-                                <a className="ant-dropdown-link" href="#" className={styles.headerBottomList}>
-                                  <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" />
+                                <a className={["ant-dropdown-link",styles.headerBottomList]}>
+                                  <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt=""/>
                                   <span>chenmanjie</span>
                                 </a>
                             </Dropdown>
@@ -36,12 +38,14 @@ function ExaminationMenu(){
             </Header>
             <div className={styles.section}>
                 <MenuView />
-                <Content style={{ overflow: 'auto' }}>
+                <Content style={{ overflow: 'auto' }} className={styles.main}>
                     <Switch>
                         <Redirect from="/" to="/questions/add" exact></Redirect>
                         <Route path="/questions/add" component={QuestionsAdd}></Route>
                         <Route path="/questions/type" component={QuestionsType}></Route>
                         <Route path="/questions/See" component={QuestionsSee}></Route>                      
+                        <Route path="/questions/edit/:id" component={QuestionsEdit}></Route>                      
+                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route>                      
                     </Switch>
                 </Content>
             </div>

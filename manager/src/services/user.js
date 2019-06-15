@@ -19,6 +19,32 @@ export function exam(params){
 export function examadd(params){
     return request({
         url:`/exam/insertQuestionsType?text=${params.text}&sort=${params.sort}`,
+    })
+}
+// 获取用户信息
+export function userInfo(){
+    return request({
+        url:'/user/userInfo',
         method:'GET'
     })
 }
+
+export function getQuestions(){
+    return request({
+        url:'/exam/questions/new',
+        method:'GET'
+    })
+}
+
+export function getDetailData(params){
+    return request({
+        params:{
+            questions_id:params
+        },
+        url:'/exam/questions/condition',
+        method:'GET'
+    })
+}
+
+
+

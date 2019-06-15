@@ -32,3 +32,30 @@ export function getQuestionsType(){
         method:'GET'
     })
 }
+
+// 按条件获取试题
+export function getQuestion(params){
+    return request({
+        url:'/exam/questions/condition',
+        method:'GET',
+        params: params
+    })
+}
+
+// 获取单个试题
+export function questionsOnly(params){
+    return request({
+        url:'/exam/questions/condition',
+        method:'GET',
+        params: params
+    })
+}
+
+// 更新试题
+export function questionsUpdate(params){
+    return request({
+        url:'/exam/questions/condition',
+        method:'PUT',
+        params
+    })
+}

@@ -31,7 +31,8 @@
             border:0;
             border-radius:5px;
             outline: none!important;
-            width: 90px;
+            padding:0 10px;
+            margin:0 5px;
             text-align: center;
             &:not(:first-child)::before{
                 width: 0;
@@ -53,5 +54,8 @@
     .see_context{
         width: 100%;
         height: auto;
+        background: #fff;
+        margin-top: 20px;
+        border-radius: 10px;
     }
 }

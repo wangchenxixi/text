@@ -24,6 +24,7 @@ function Login(props){
     // 表单提交
     let handleSubmit = e => {
         e.preventDefault();
+        console.log(props.form)
         props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
