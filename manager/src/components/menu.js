@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu,Icon, Layout  } from 'antd';
+import { Menu, Icon, Layout  } from 'antd';
 import { Link } from 'dva/router';
 
 const MenuView = () => {

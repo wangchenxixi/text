@@ -4655,7 +4655,7 @@ follow-redirects@^1.0.0:
   dependencies:
     debug "^3.2.6"
 
-for-editor@^0.0.13:
+for-editor@0.0.13:
   version "0.0.13"
   resolved "https://registry.npm.taobao.org/for-editor/download/for-editor-0.0.13.tgz#ca4949b4618d80c2efdec6d9b1f51e1360297812"
   integrity sha1-yklJtGGNgMLv3sbZsfUeE2ApeBI=
@@ -9746,6 +9746,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+reqwest@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.npm.taobao.org/reqwest/download/reqwest-2.0.5.tgz#00fb15ac4918c419ca82b43f24c78882e66039a1"
+  integrity sha1-APsVrEkYxBnKgrQ/JMeIguZgOaE=
 
 reselect@^3.0.1:
   version "3.0.1"

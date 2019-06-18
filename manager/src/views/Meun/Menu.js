@@ -4,9 +4,12 @@ import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
 import MenuView from '@/components/menu.js'
 import Add from "../exam/Add"
-
+import showUser from "./userManagement/showUser/showUser";
 import Type from "../exam/Type"
-import Look from "../exam/Look"
+import QuestionsType from "./questionsManagement/QuestionsType/QuestionsType"
+import QuestionsSee from "./questionsManagement/QuestionsSee/QuestionsSee"
+import addUser from './userManagement/addUser/addUser';
+import examManagement from "./examManagement/examManagement"
 function ExaminationMenu(){
     
     const menu = (
@@ -41,8 +44,11 @@ function ExaminationMenu(){
                     <Switch>
                         <Redirect from="/" to="/questions/add" exact></Redirect>
                         <Route path="/questions/add" component={Add}></Route>
-                        <Route path="/questions/type" component={Look}></Route>
-                        <Route path="/questions/See" component={Type}></Route>                      
+                        <Route path="/questions/type" component={QuestionsType}></Route>
+                        <Route path="/questions/See" component={Type}></Route>   
+                        <Route path="/user/add" component={addUser}></Route>
+                        <Route path="/user/See" component={showUser}></Route>     
+                        <Route path="/exam/add" component={examManagement}></Route>                   
                     </Switch>
                 </Content>
             </div>

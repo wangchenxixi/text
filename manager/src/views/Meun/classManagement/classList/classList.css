@@ -1,0 +1,23 @@
+.wrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    width: 90%;
+    height: 80px;
+    margin:  0 auto;
+    font-size: 25px;
+    line-height: 80px;
+}
+.bottom{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    padding:20px ;
+    background: #fff;
+    border-radius: 10px;
+}
+.list{
+    margin-top: 20px;
+}
