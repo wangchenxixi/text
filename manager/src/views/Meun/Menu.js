@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './Meun.css';
 import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
-import MenuView from '@/components/menu.js'
+import MenuView from '@/components/Menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
 import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
 import QuestionsSee from './questionsManagement/QuestionsSee/QuestionsSee'
 import QuestionDetail from './questionsManagement/questionDetail/questionDetail';
 import QuestionsEdit from './questionsManagement/questionsEdit/questionsEdit';
+import ExamAdd from './examManagement/examManagement';
 
 function ExaminationMenu(){
     let menu = (
@@ -45,7 +46,8 @@ function ExaminationMenu(){
                         <Route path="/questions/type" component={QuestionsType}></Route>
                         <Route path="/questions/See" component={QuestionsSee}></Route>                      
                         <Route path="/questions/edit/:id" component={QuestionsEdit}></Route>                      
-                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route>                      
+                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route>   
+                        <Route path="/exam/add" component={ExamAdd}></Route>                    
                     </Switch>
                 </Content>
             </div>

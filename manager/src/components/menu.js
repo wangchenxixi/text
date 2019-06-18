@@ -1,6 +1,6 @@
 import React from 'react';
-import { Menu, Dropdown, Icon, Layout  } from 'antd';
-import { Route, Switch, Link } from 'dva/router';
+import { Menu, Icon, Layout  } from 'antd';
+import { Link } from 'dva/router';
 
 const MenuView = () => {
     const { SubMenu }  = Menu;

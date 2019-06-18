@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import { connect } from 'dva';
 import './login.scss';
@@ -12,9 +12,8 @@ function Login(props){
             // 登录成功
             message.success('登录成功！')
             // 跳主页面
-            // let pathname = decodeURIComponent(props.history.location.search.split('=')[1]);
-            // props.history.replace(pathname || '/');
-            props.history.replace('/');
+            let pathname = decodeURIComponent(props.history.location.search.split('=')[1]);
+            props.history.replace(pathname || '/');
         }else if(props.isLogin === -1){
             // 登录失败
             message.error('用户名或密码错误！')
@@ -24,7 +23,6 @@ function Login(props){
     // 表单提交
     let handleSubmit = e => {
         e.preventDefault();
-        console.log(props.form)
         props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);

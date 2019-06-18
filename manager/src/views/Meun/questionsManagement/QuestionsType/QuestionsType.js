@@ -1,6 +1,6 @@
 import  React, {Component} from 'react';
 import typeStyle from './QuestionsType.css'
-import { Button, Input , Icon, Table, Modal } from 'antd'
+import { Button, Input, Table, Modal } from 'antd'
 import { connect } from 'dva';
 
 class QuestionsType extends Component{   
@@ -9,7 +9,7 @@ class QuestionsType extends Component{
         this.state={
             visible: false,
             value:'',
-            num:9
+            num:0
         }
     }
     handleCancel = e => {
@@ -24,8 +24,7 @@ class QuestionsType extends Component{
     };
     handleOk = e => {
         let { examadd } = this.props;
-        console.log(this.state.num)
-        examadd({text:this.state.value,sort:this.state.num})
+        examadd({text:this.state.value,sort:Math.floor(Math.random()*100)})
         this.setState({
             visible: false
         })
@@ -37,18 +36,26 @@ class QuestionsType extends Component{
     render(){
         const columns = [
             {
-              title: '类型ID',
-              dataIndex: 'questions_type_id',
+                
+                title: '类型ID',
+                dataIndex: 'questions_type_id',
+                key:1
             },
             {
-              title: '类型名称',
-              dataIndex: 'questions_type_text',
+               
+                title: '类型名称',
+                dataIndex: 'questions_type_text',
             },
             {
-              title: '操作',
-              dataIndex: "",
+                
+                title: '操作',
+                dataIndex: "",
             },
         ];
+        let data=[];
+        this.props.typeList&&this.props.typeList.map((item,index)=>{
+            return data.push({...item,key:"'"+index+"'"})
+        })
         return (
             <div className={typeStyle.wrap}>
                 <p className={typeStyle.title}>试题分类</p>
@@ -58,7 +65,7 @@ class QuestionsType extends Component{
                             添加类型
                         </Button>
                         <Modal
-                            title="Basic Modal"
+                            title="创建新类型"
                             visible={this.state.visible}
                             onOk={this.handleOk}
                             onCancel={this.handleCancel}
@@ -69,7 +76,7 @@ class QuestionsType extends Component{
                         </Modal>
                     </div>
                     <div className={typeStyle.list}>
-                        <Table columns={columns} dataSource={this.props.typeList&&this.props.typeList} size="middle" />
+                        <Table columns={columns} dataSource={data} size="middle" />
                     </div>
                 </div>
             </div>
@@ -87,6 +94,7 @@ const mapDispatchToProps=(dispatch)=>{
             dispatch({type:'exam/getQuestionsType'})
         },
         examadd(payload){
+            console.log(payload)
             dispatch({type:'exam/insertQuestionsType',payload})
         }
     }

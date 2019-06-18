@@ -19,8 +19,9 @@ html,body{
     background: #fff;
 }
 .headerTop{
-    width: 100%;
+    width: 92%;
     height: 100%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -60,4 +61,7 @@ html,body{
 }
 .ant-layout{
     flex: 1;
+}
+.main{
+    position: relative;
 }
