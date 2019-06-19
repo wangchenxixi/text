@@ -1,0 +1,39 @@
+:global{
+    .ant-tabs-nav {
+        .ant-tabs-tab{
+            background: #fff;
+            border-right:1px solid #ccc;
+            border-bottom:1px solid #ccc;
+            border-top:1px solid #ccc;
+            border-left:1px solid #fff;
+            margin-left: -1px;
+            padding: 5px 16px;
+            margin: 0;
+            &:first-child{
+                border-left:1px solid #ccc;
+            }
+            &:hover{
+                color:#0139FD;
+            }
+            &.ant-tabs-tab-active{
+                font-weight: 0;
+                border:1px solid #0139FD;
+                color:#0139FD;
+            }
+        }
+        
+    }
+    .ant-tabs-nav-wrap{
+        margin: 0;
+    }
+    .ant-tabs-ink-bar.ant-tabs-ink-bar-animated{
+        width:0!important;
+    }
+    .ant-tabs-bar{
+        border-bottom:0;
+    }
+    .user-title{
+        padding: 20px 0px;
+        margin-top: 10px;
+    }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Meun.css';
-import { Menu, Dropdown, Layout  } from 'antd';
+import { Menu, Dropdown, Layout, LocaleProvider  } from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import { Route, Switch, Redirect } from 'dva/router';
 import MenuView from '@/components/Menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
@@ -8,8 +9,10 @@ import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
 import QuestionsSee from './questionsManagement/QuestionsSee/QuestionsSee'
 import QuestionDetail from './questionsManagement/questionDetail/questionDetail';
 import QuestionsEdit from './questionsManagement/questionsEdit/questionsEdit';
-import ExamAdd from './examManagement/examManagement';
-
+import UserSee from './userManagement/userSee';
+import userAdd from './userManagement/userAdd';
+import ExamAdd from './examManagement/examAdd';
+import ExamList from './examManagement/examList';
 function ExaminationMenu(){
     let menu = (
         <Menu>
@@ -37,20 +40,28 @@ function ExaminationMenu(){
                     </div>
                 </div>
             </Header>
+            <LocaleProvider locale={zh_CN}>
             <div className={styles.section}>
                 <MenuView />
                 <Content style={{ overflow: 'auto' }} className={styles.main}>
                     <Switch>
+                        {/* 试题管理 */}
                         <Redirect from="/" to="/questions/add" exact></Redirect>
                         <Route path="/questions/add" component={QuestionsAdd}></Route>
                         <Route path="/questions/type" component={QuestionsType}></Route>
                         <Route path="/questions/See" component={QuestionsSee}></Route>                      
                         <Route path="/questions/edit/:id" component={QuestionsEdit}></Route>                      
-                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route>   
-                        <Route path="/exam/add" component={ExamAdd}></Route>                    
+                        <Route path="/questions/detail/:id" component={QuestionDetail}></Route> 
+                        {/* 用户管理 */}
+                        <Route path="/user/see" component={UserSee}></Route>                                              
+                        <Route path="/user/add" component={userAdd}></Route>            
+                        {/* 考试管理 */}
+                        <Route path="/exam/add" component={ExamAdd}></Route>                                              
+                        <Route path="/exam/list" component={ExamList}></Route>
                     </Switch>
                 </Content>
             </div>
+            </LocaleProvider>
         </Layout>
     )
 }

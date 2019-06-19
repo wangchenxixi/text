@@ -1,0 +1,51 @@
+:global{
+
+.bottom{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 10px;
+    .Bottom_top{
+        display:flex;
+        .Bottom_tit{
+            width:90px;
+            line-height: 32px;
+        }
+        .radio_list{
+            flex:1;
+        }
+    }
+    .radio_item{
+        border:0;
+        border-radius:5px;
+        outline: none!important;
+        padding:0 10px;
+        margin:0 5px;
+        text-align: center;
+        &:not(:first-child)::before{
+            width: 0;
+        }
+    }
+    .top_search{
+        display: flex;
+        margin-top:30px;
+        .Bottom_babel{
+            display: flex;
+            margin-right:30px;
+            .Bottom_tit{
+                width:80px;
+                line-height: 32px;
+            }
+        }
+    }
+}
+.see_context{
+    width: 100%;
+    height: auto;
+    background: #fff;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+}

@@ -54,8 +54,26 @@ export function questionsOnly(params){
 // 更新试题
 export function questionsUpdate(params){
     return request({
-        url:'/exam/questions/condition',
+        url:'/exam/questions/update',
         method:'PUT',
+        data:params
+    })
+}
+
+// 添加考试
+export function examAdd(params){
+    return request({
+        url:'/exam/exam',
+        method:'POST',
+        data:params
+    })
+}
+
+// 获取试卷列表
+export function examList(params){
+    return request({
+        url:'/exam/exam',
+        method:'GET',
         params
     })
 }

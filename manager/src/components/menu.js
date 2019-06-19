@@ -38,7 +38,7 @@ const MenuView = () => {
                     <Link to="/user/add">添加用户</Link>
                 </Menu.Item>
                 <Menu.Item key="5">
-                    <Link to="/user/See">用户展示</Link>
+                    <Link to="/user/see">用户展示</Link>
                 </Menu.Item>
             </SubMenu>
             <SubMenu

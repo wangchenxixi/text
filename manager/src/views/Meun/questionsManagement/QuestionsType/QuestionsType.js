@@ -9,8 +9,10 @@ class QuestionsType extends Component{
         this.state={
             visible: false,
             value:'',
-            num:0
+            num:0,
+            selectedRowKeys: [],
         }
+        console.log(props.exam)
     }
     handleCancel = e => {
         this.setState({
@@ -32,6 +34,7 @@ class QuestionsType extends Component{
     componentDidMount(){
         let { exam } = this.props
         exam()
+        console.log(this.props)
     }
     render(){
         const columns = [
@@ -45,11 +48,13 @@ class QuestionsType extends Component{
                
                 title: '类型名称',
                 dataIndex: 'questions_type_text',
+                key:2
             },
             {
                 
                 title: '操作',
-                dataIndex: "",
+                dataIndex: '删除',
+                key:3
             },
         ];
         let data=[];
@@ -76,7 +81,7 @@ class QuestionsType extends Component{
                         </Modal>
                     </div>
                     <div className={typeStyle.list}>
-                        <Table columns={columns} dataSource={data} size="middle" />
+                        <Table columns={columns} dataSource={data} />
                     </div>
                 </div>
             </div>
