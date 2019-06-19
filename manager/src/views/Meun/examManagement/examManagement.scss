@@ -42,7 +42,11 @@ p{
         
     }
     .time{
-        display: flex;
+       
+        width:600px
+    }
+    .time p{
+        display: block;
     }
     .daanTit{
         margin-top:15px;
@@ -51,4 +55,8 @@ p{
         margin-top:15px;
     }
    
+}
+.login-form{
+    margin-top: 0px;
+     clear: both;
 }

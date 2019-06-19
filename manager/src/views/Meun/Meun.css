@@ -62,3 +62,6 @@ html,body{
 .ant-layout{
     flex: 1;
 }
+.main{
+    position: relative;
+}

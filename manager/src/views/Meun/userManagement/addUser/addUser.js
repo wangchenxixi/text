@@ -1,7 +1,7 @@
-import React, { useEffect, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'dva';
 import styles from "./addUser.css";
-import { Tabs, Icon, Button, Form, Select, Input } from 'antd';
+import { Tabs, Button, Form, Select, Input,Alert } from 'antd';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -15,19 +15,23 @@ class addUser extends Component {
         addusers();
         console.log("props....", this.props)
     }
-    handleSubmit = e => {
-        e.preventDefault();
-        this.propaddUsers.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    }
-    handleSelectChange = value => {
-        console.log(value);
-        this.props.form.setFieldsValue({
-            note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
-        });
+    // handleSubmit = e => {
+    //     e.preventDefault();
+    //     this.propaddUsers.form.validateFields((err, values) => {
+    //         if (!err) {
+    //             console.log('Received values of form: ', values);
+    //         }
+    //     });
+    // }
+    // handleSelectChange = value => {
+    //     console.log(value);
+    //     this.props.form.setFieldsValue({
+    //         note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
+    //     });
+    // };
+    click = e => {
+        console.log(e);
+        <Alert message="Error" type="error" showIcon />
     };
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -74,7 +78,7 @@ class addUser extends Component {
                                                 )}
                                             </Form.Item>
                                             <Form.Item >
-                                                <Button type="primary" htmlType="submit" className={styles.yes}>
+                                                <Button type="primary" htmlType="submit" className={styles.yes} onClick={this.click}>
                                                     确定
                                                 </Button>
                                                 <Button className={styles.chongzhi}>重置</Button>

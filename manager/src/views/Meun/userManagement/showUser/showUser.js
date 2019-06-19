@@ -1,12 +1,8 @@
-import React, { useEffect, Component } from 'react';
+import React, { useEffect} from 'react';
 import { connect } from 'dva';
 import styles from "./showUser.css";
-import { Tabs, Icon, Button, Table } from 'antd';
+import { Tabs, Button, Table } from 'antd';
 const { TabPane } = Tabs;
-function callback(key) {
-  console.log(key);
-}
-
 
 function showUser(props) {
 

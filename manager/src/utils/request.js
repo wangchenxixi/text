@@ -5,14 +5,14 @@ import { getToken } from '@/utils/user';
 const service = axios.create({
     baseURL: 'http://169.254.12.77:7001',
     // withCredentials: true, // 跨域请求时发送 cookies
-    timeout: 5000 // request timeout
+    timeout: 10000 // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
     config => {
         // 判断是否有登录态
-        if (getToken()) {
+        if(getToken()){
             // 让每个请求者都携带token
             config.headers['authorization'] = getToken()
         }

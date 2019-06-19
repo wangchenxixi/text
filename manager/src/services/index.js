@@ -1,4 +1,3 @@
 export * from './user.js'
 export * from './questions.js'
 export * from './usershow.js'
-export * from './usercontrol.js'
