@@ -29,7 +29,8 @@ export default {
         *insertQuestionsType({payload},{call,put}){
             let data = yield call(examadd,payload);
             console.log(data)
-        }
+        },
+        
     },
 
     // 同步操作

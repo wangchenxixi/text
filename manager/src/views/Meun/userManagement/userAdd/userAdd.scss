@@ -1,0 +1,36 @@
+.wrap{
+    width: 100%;
+    height: 100%;
+}
+.title{
+    width: 95%;
+    height: 80px;
+    margin: 0 auto;
+    font-size: 25px;
+    line-height: 80px;
+}
+.bottom{
+    width: 95%;
+    height: auto;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+.bottom_Top,.bottom_Bottom{
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: space-around;
+    border-bottom:solid #ccc 1px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.bottom_Center{
+    width: 33.3%;
+    height: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+}

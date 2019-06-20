@@ -1,41 +1,38 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import { Radio, Select, Button, Form } from 'antd';
 import { connect } from 'dva';
 import styleSee from './QuestionsSee.scss'
-import TableView from '../../../../components/Table.js'
+import TableView from  '../../../../components/Table.js'
 const { Option } = Select;
 
-function QuestionsSee(props) {
-    console.log(props)//props.getQuestionsData.length
-    useEffect(() => {
-        // 获取考试类型
-        props.examType();
-        // 获取课程类型
-        props.subjectType();
-        // 获取题目类型
-        props.questionsType();
-        // 获取所有试题
-        props.questions();
-     
-    }, [])
-
+function QuestionsSee(props){
+    useEffect(()=>{
+         // 获取考试类型
+         props.examType();
+         // 获取课程类型
+         props.subjectType();
+         // 获取题目类型
+         props.questionsType();
+         // 获取所有试题
+         props.questions()
+    },[])
+    
     // 查询
     let handleSearch = (e) => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
             if (!err) {
-                 // 按条件获取试题
-                 props.getQuestion(values)
                 console.log('Received values of form: ', values);
-               
+                // 按条件获取试题
+                props.getQuestion(values) 
             }
-        });
+        });        
     }
 
-    const { getFieldDecorator } = props.form;
+    const { getFieldDecorator } = props.form; 
     return (
         <div className={styleSee.wrap}>
-            <Form onSubmit={handleSearch} className="login-form" style={{ marginTop: 0, maxWidth: 1400 }}>
+            <Form onSubmit={handleSearch} className="login-form">
                 <h2 className={styleSee.title}>查看试题</h2>
                 <div className={styleSee.bottom}>
                     <div className={styleSee.Bottom_top}>
@@ -46,14 +43,14 @@ function QuestionsSee(props) {
                         })(
                             <Radio.Group defaultValue="a" buttonStyle="solid" className={styleSee.radio_list}>
                                 <Radio.Button value={undefined} className={styleSee.radio_item}>All</Radio.Button>
-                                {
-                                    props.subjectTypeData.map((item) => (
+                                {                
+                                    props.subjectTypeData.map((item)=>(
                                         <Radio.Button value={item.subject_id} key={item.subject_id} className={styleSee.radio_item}>{item.subject_text}</Radio.Button>
                                     ))
                                 }
                             </Radio.Group>
                         )}
-
+                        
                     </div>
                     <div className={styleSee.top_search}>
                         <div className={styleSee.Bottom_babel}>
@@ -63,12 +60,12 @@ function QuestionsSee(props) {
                                     initialValue: undefined
                                 })(
                                     <Select style={{ width: 160 }}>
-                                        {
-                                            props.examTypeData.map(item => (
-                                                <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
-                                            ))
-                                        }
-                                    </Select>
+                                    {                
+                                        props.examTypeData.map(item=>(
+                                            <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
+                                        ))
+                                    }
+                                    </Select> 
                                 )}
                             </Form.Item>
                         </div>
@@ -79,26 +76,22 @@ function QuestionsSee(props) {
                                     initialValue: undefined
                                 })(
                                     <Select style={{ width: 160 }}>
-                                        {
-                                            props.questionsTypeData.map(item => (
-                                                <Option value={item.questions_type_id} key={item.questions_type_id}>{item.questions_type_text}</Option>
-                                            ))
-                                        }
+                                    {                
+                                        props.questionsTypeData.map(item=>(
+                                            <Option value={item.questions_type_id} key={item.questions_type_id}>{item.questions_type_text}</Option>
+                                        ))
+                                    }
                                     </Select>
                                 )}
-                            </Form.Item>
+                            </Form.Item>                           
                         </div>
-                        <Button type="primary" htmlType="submit" icon="search">查询</Button>
+                        <Button type="primary" htmlType="submit" icon="search">查 询</Button>
                     </div>
                 </div>
-                <div>
-                    {/* {
+                <div className={styleSee.see_context}>
+                {
                     props.getQuestionsData.length ? <TableView props={props.getQuestionsData}/> : null 
-                }                   */}
-                    {
-                        <TableView props={props.getQuestionsData} />
-                    }
-
+                }                  
                 </div>
             </Form>
         </div>
@@ -106,43 +99,43 @@ function QuestionsSee(props) {
 }
 
 const mapStateToProps = state => {
-    console.log("state...", state)
-    return {
+    console.log("state...",state)
+    return{
         ...state.questions
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         // 获取考试类型
-        examType() {
+        examType(){
             dispatch({
-                type: "questions/examType"
+                type:"questions/examType"
             })
         },
         // 获取课程类型
-        subjectType() {
+        subjectType(){
             dispatch({
-                type: "questions/subjectType"
+                type:"questions/subjectType"
             })
         },
         // 获取题目类型
-        questionsType() {
+        questionsType(){
             dispatch({
-                type: "questions/questionsType"
+                type:"questions/questionsType"
             })
         },
         // 按条件获取试题
-        getQuestion(payload) {
+        getQuestion(payload){
             dispatch({
-                type: "questions/getQuestion",
+                type:"questions/getQuestion",
                 payload
             })
         },
         // 获取所有试题
-        questions() {
-            dispatch({ type: 'questions/getQuestions' })
+        questions(){
+            dispatch({type:'questions/getQuestions'})
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(QuestionsSee))
+export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(QuestionsSee))

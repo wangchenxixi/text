@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { connect } from 'dva';
-import { Input ,Select, Button, Form } from 'antd';
+import { Input ,Select, Button, Form, message } from 'antd';
 import  styles from './questionsEdit.scss';
 import Editor from 'for-editor'
 
@@ -20,7 +20,14 @@ function questionsAdd(props){
         props.questionsType();
         // 获取单个试题    
         props.questionsOnly({questions_id});
-    }, []);
+        // 判断更新状态
+        if(props.questionsUpdateFlag === 1){
+            message.success("试题更新成功！")
+        }else if(props.questionsUpdateFlag === -1){
+            message.success("试题更新失败！")
+        }
+
+    }, [props.questionsUpdateFlag]);
 
     // 表单提交
     let handleSubmit = e => {

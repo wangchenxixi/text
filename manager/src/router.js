@@ -3,9 +3,8 @@ import { Router, Route, Switch } from 'dva/router';
 import Login from './views/login/index';
 import Meun from './views/Meun/Menu';
 import {connect} from 'dva';
-
-
-//引入国际化
+// import indexPage from './views/IndexPage';
+// import Home from './views/home';
 import {IntlProvider, addLocaleData} from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
@@ -21,19 +20,19 @@ const mapStateToProps = state=>{
     locale: state.global.locale
   }
 }
-const RouterView = connect(mapStateToProps)(({locale,history})=>{
+const RouterView = connect(mapStateToProps)(({locale, history})=>{
   return <IntlProvider locale={locale} messages={localMap[locale]}>
-  <Router history={history}>
-     <Switch>
+    <Router history={history}>
+      <Switch>
         <Route path="/login" component={Login} />
         <Route path="/" component={Meun} />
       </Switch>
-      </Router>
+    </Router>
   </IntlProvider>
 })
 function RouterConfig({ history }) {
   return (
-     <RouterView history={history} />
+    <RouterView history={history}></RouterView>
   );
 }
 

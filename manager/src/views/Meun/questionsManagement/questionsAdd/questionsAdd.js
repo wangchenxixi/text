@@ -15,7 +15,7 @@ function questionsAdd(props){
         props.subjectType();
         // 获取题目类型
         props.questionsType();
-            console.log(props.addQuestionsFlag)
+
         if(props.addQuestionsFlag === 1){
             // 添加成功
             message.success('添加成功！')
@@ -34,7 +34,7 @@ function questionsAdd(props){
                 // console.log('Received values of form: ', values);
                 let params = values;
                 params.user_id = props.userInfoData.user_id;
-                // console.log( props.userInfoData);
+                console.log(params);
                 props.add(params)
             }
         });
@@ -45,7 +45,7 @@ function questionsAdd(props){
     return <div className={styles.content}>
     <h2 className={styles.title}>添加试题</h2>
     <div className={styles.main}>
-    <Form onSubmit={handleSubmit} style={{ marginTop: 0, float: "left" }}>
+    <Form onSubmit={handleSubmit} className="login-form">
         <div className={styles.markcont}>
             <p>题目信息</p>
             <Form.Item>

@@ -1,5 +1,5 @@
 import  React, {Component} from 'react';
-import typeStyle from './QuestionsType.css'
+import typeStyle from './index.css'
 import { Button, Input, Table, Modal } from 'antd'
 import { connect } from 'dva';
 
@@ -40,22 +40,28 @@ class QuestionsType extends Component{
         const columns = [
             {
                 
-                title: '类型ID',
+                title: '班级名',
                 dataIndex: 'questions_type_id',
                 key:1
             },
             {
                
-                title: '类型名称',
+                title: '课程名',
                 dataIndex: 'questions_type_text',
                 key:2
+            },
+            {
+                
+                title: '教室号',
+                dataIndex: '删除',
+                key:3
             },
             {
                 
                 title: '操作',
                 dataIndex: '删除',
                 key:3
-            },
+            }
         ];
         let data=[];
         this.props.typeList&&this.props.typeList.map((item,index)=>{
@@ -63,11 +69,11 @@ class QuestionsType extends Component{
         })
         return (
             <div className={typeStyle.wrap}>
-                <p className={typeStyle.title}>试题分类</p>
+                <p className={typeStyle.title}>班级管理</p>
                 <div className={typeStyle.bottom}>
                     <div>
                         <Button type="primary" onClick={this.typeAdd} icon="plus" size="large">
-                            添加类型
+                            添加班级
                         </Button>
                         <Modal
                             title="创建新类型"
