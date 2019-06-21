@@ -4,7 +4,7 @@ import { Form, Input, Button, Select, InputNumber, DatePicker,message } from 'an
 // import moment from 'moment';
 import './examAdd.scss';
 
-function AddUser(props) {
+function examCompile(props) {
     useEffect(()=>{
          // 获取考试类型
          props.examType();
@@ -87,26 +87,6 @@ function AddUser(props) {
                         />,
                     )}
                 </Form.Item>
-                <Form.Item label="考试时间：" style={{ marginBottom: 0 }}>
-                    <Form.Item style={{ display: 'inline-block'}}>
-                        {getFieldDecorator('start_time', {
-                            rules: [{ required: true, message: '请选择开始时间!' }],
-                            // initialValue: moment('2015/01/01', dateFormat)
-                        })(
-                            // <DatePicker placeholder="开始时间"/>
-                            <DatePicker showTime placeholder="Start Time" />
-                        )}                  
-                    </Form.Item>
-                    <span style={{ display: 'inline-block', width: '24px', textAlign: 'center' }}>-</span>
-                    <Form.Item style={{ display: 'inline-block'}}>
-                    {getFieldDecorator('end_time', {
-                        rules: [{ required: true, message: '请选择结束时间!' }],
-                        // initialValue: moment('2015/01/01', dateFormat)
-                    })(
-                        <DatePicker showTime placeholder="End Time" />
-                    )}
-                    </Form.Item>
-                </Form.Item>
 
                 <Button type="primary" htmlType="submit" className='login_form_button'>
                     创建试卷
@@ -147,4 +127,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Form.create()(AddUser));
+)(Form.create()(examCompile));

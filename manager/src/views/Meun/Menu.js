@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Meun.css';
-import { Menu, Dropdown, Layout, LocaleProvider  } from 'antd';
-import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
-import MenuView from '@/components/Menu.js'
+import { connect } from 'dva'
+import MenuView from '@/components/menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
 import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
 import QuestionsSee from './questionsManagement/QuestionsSee/QuestionsSee'
@@ -13,7 +13,11 @@ import UserSee from './userManagement/userSee';
 import userAdd from './userManagement/userAdd';
 import ExamAdd from './examManagement/examAdd';
 import ExamList from './examManagement/examList';
-function ExaminationMenu(){
+import ClassManagement from './classManagement/classManagement/classManagement'
+import ClassRoom from './classManagement/classRoom/classromm'
+import ClassStudent from './classManagement/classStudent/classStudent'
+
+function ExaminationMenu(props){
     let menu = (
         <Menu>
             <Menu.Item key="1">个人中心</Menu.Item>
@@ -37,10 +41,11 @@ function ExaminationMenu(){
                                 </a>
                             </Dropdown>
                         }
+                        <button onClick={()=>{props.changeLocal(props.locale==='zh'?'en':'zh')}}>{props.locale==='zh'?'英文':'中文'}</button>
                     </div>
                 </div>
+                
             </Header>
-            <LocaleProvider locale={zh_CN}>
             <div className={styles.section}>
                 <MenuView />
                 <Content style={{ overflow: 'auto' }} className={styles.main}>
@@ -58,16 +63,26 @@ function ExaminationMenu(){
                         {/* 考试管理 */}
                         <Route path="/exam/add" component={ExamAdd}></Route>                                              
                         <Route path="/exam/list" component={ExamList}></Route>
+                        {/* 班级管理 */}
+                        <Route path="/class/management" component={ClassManagement}></Route>                                              
+                        <Route path="/class/classroom" component={ClassRoom}></Route>
+                        <Route path="/class/student" component={ClassStudent}></Route>
                     </Switch>
                 </Content>
             </div>
-            </LocaleProvider>
         </Layout>
     )
 }
-
-ExaminationMenu.propTypes = {
-
-};
-
-export default ExaminationMenu
+const mapStateToProps=state=>{
+    return {
+        locale:state.global.locale
+    }
+}
+const mapDispatchToProps=dispatch=>{
+    return {
+        changeLocal(payload){
+            dispatch({type:'global/changeLocale',payload})
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ExaminationMenu)

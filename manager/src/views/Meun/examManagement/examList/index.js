@@ -75,7 +75,8 @@ function QuestionsSee(props){
 const mapStateToProps = state => {
     console.log("state...",state)
     return{
-        ...state.questions
+        ...state.questions,
+        ...state.exam
     }
 }
 const mapDispatchToProps = dispatch => {

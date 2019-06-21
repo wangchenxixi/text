@@ -114,7 +114,7 @@ class AddUser extends Component{
                                             <Select
                                                 showSearch
                                                 style={{ width: 200 }}
-                                                placeholder="请选择身份id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                                 style={this.state.flag?{display:'none'}:{display:'block'}}
                                             >
@@ -163,7 +163,7 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item >
                                     <Button type="primary" onClick={()=>{this.state.flag?this.addUser('submit'):this.upDataUser('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px',background:'#fff',color:'#ccc'}} onClick={()=>{this.state.flag?this.addUser('sub'):this.upDataUser('sub')}}>重置</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.state.flag?this.addUser('sub'):this.upDataUser('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
@@ -183,11 +183,11 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.addEdit('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px',background:'#fff',color:'#ccc'}} onClick={()=>{this.addEdit('sub')}}>重置</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addEdit('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form >
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" >
@@ -217,13 +217,13 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.addApi('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px',background:'#fff',color:'#ccc'}} onClick={()=>{this.addApi('sub')}}>重置</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addApi('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                     </div>
                     <div className={userAddStyle.bottom_Bottom}>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" style={{marginLeft:'10px'}}>
@@ -236,7 +236,7 @@ class AddUser extends Component{
                                             <Select
                                                 showSearch
                                                 style={{ width: 200 }}
-                                                placeholder="请选择已有视图"
+                                                placeholder="请选则身份id"
                                                 optionFilterProp="children"
                                                 onChange={this.select}
                                             >      
@@ -251,11 +251,11 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.addView('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px',background:'#fff',color:'#ccc'}} onClick={()=>{this.addView('sub')}}>重置</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addView('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form>
                             <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
@@ -267,7 +267,7 @@ class AddUser extends Component{
                                         getFieldDecorator('setID')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择身份id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -284,7 +284,7 @@ class AddUser extends Component{
                                         getFieldDecorator('setPower')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择api接口权限"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -298,11 +298,11 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.power('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px',background:'#fff',color:'#ccc'}} onClick={()=>{this.power('sub')}}>重置</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.power('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
@@ -314,7 +314,7 @@ class AddUser extends Component{
                                         getFieldDecorator('statusId')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择身份id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -331,7 +331,7 @@ class AddUser extends Component{
                                         getFieldDecorator('viewId')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择视图权限id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -345,7 +345,7 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.statusId('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px',background:'#fff',color:'#ccc'}} onClick={()=>{this.statusId('sub')}}>重置</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.statusId('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
