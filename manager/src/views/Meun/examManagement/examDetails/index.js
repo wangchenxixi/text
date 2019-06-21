@@ -1,24 +1,15 @@
 import React, { useEffect } from 'react'
-import { Select, Button, Form, Table } from 'antd';
+import { Select, Form} from 'antd';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import moment from "moment"
 import './index.scss';
-import hashHistory from "react-router"
-const { Option } = Select;
-
 function QuestionsSee(props) {
-
+    window.location.hash.split('=')[1]
     useEffect(() => {
         // 获取考试类型
-        props.examType();
-        // 获取课程类型
-        props.subjectType();
         // 获取试卷列表
-        props.examList();
-        props.detail()
+        props.detail(window.location.hash.split('=')[1])
     }, [])
-    console.log("props..", props);
+    console.log("props..", props.exam.detail.questions);
 
     const { getFieldDecorator } = props.form;
     return (
@@ -27,10 +18,17 @@ function QuestionsSee(props) {
             <Form className="login-form">
                 <h2 className='user-title'>试卷详情</h2>
                 <div className="mainbox">
-                {
-                //    props.detail.questions
-                  
-                }             
+                    {
+
+                        props.exam.detail.questions&& props.exam.detail.questions.map(item => {
+                           return  <div className="box">
+                                    <p>{item.title}</p>
+                                    <p>{item.questions_stem}</p>
+                                    <p>{item.questions_answer}</p>
+                            </div>
+                        })
+
+                    }
                 </div>
             </Form>
         </div>
@@ -40,34 +38,16 @@ function QuestionsSee(props) {
 const mapStateToProps = state => {
     console.log("state...", state)
     return {
-        ...state.questions,
-        ...state.exam
+        ...state
+
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        // 获取考试类型
-        examType() {
+        detail(payload) {
             dispatch({
-                type: "questions/examType"
-            })
-        },
-        // 获取课程类型
-        subjectType() {
-            dispatch({
-                type: "questions/subjectType"
-            })
-        },
-        // 获取试卷列表
-        examList() {
-            dispatch({
-                type: "exam/examList"
-            })
-        },
-        detail()
-        {
-            dispatch({
-                type: "exam/details"
+                type: "exam/details",
+                payload
             })
         }
     }

@@ -10,9 +10,10 @@ function AddUser(props) {
         props.examType();
         // 获取课程类型
         props.subjectType();
+        props.getQuestion();
         if (props.examAddFlag === 1) {
             message.success('添加考试成功！')
-
+           
         } else if (props.examAddFlag === -1) {
             message.success('添加考试失败！')
         }
@@ -28,8 +29,7 @@ function AddUser(props) {
                 console.log('Received values of form: ', values);
                 // 添加考试
                 props.examAdd(values);
-            
-
+                props.history.push('/exam/edit') 
             }
         });
     }
@@ -140,7 +140,13 @@ const mapDispatchToProps = dispatch => {
                 type: "questions/examAdd",
                 payload
             })
-        }
+        },
+        getQuestion(payload) {
+            dispatch({
+                type: "questions/getQuestion",
+                payload
+            })
+        },
     };
 };
 

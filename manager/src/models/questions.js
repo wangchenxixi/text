@@ -111,7 +111,9 @@ export default {
             console.log(data);
             yield put({
                 type:'getExamAdd',
-                action:data.code === 1 ? 1 : -1
+                action:data.data,
+                // action:data.code === 1 ? 1 : -1,
+                
             })
         },
     },
@@ -170,7 +172,8 @@ export default {
         getExamAdd(state, {action}){
             return {
                 ...state,
-                examAddFlag: action
+                examAddData:action,
+                // examAddFlag: action
             };
         }
     },

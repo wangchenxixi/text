@@ -23,17 +23,17 @@ function QuestionsSee(props) {
     // 查询
     let handleSearch = (e) => {
         e.preventDefault();
+        let arr = [];
         props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                arr.push(values);
             }
         });
     }
-    let click=(props)=>{
+    let click = (props) => {
         console.log(props)
-        hashHistory.push("http://localhost:8000/#/exam/list"+props.exam_exam_id)
-        // window.location.href="http://localhost:8000/#/exam/list"+props.exam_exam_id
-    //    this.props.history.push="http://localhost:8000/#/exam/list"+props.exam_exam_id
+        hashHistory.push("http://localhost:8000/#/exam/list" + props.exam_exam_id)
     }
     const columns = [
         {
@@ -47,7 +47,7 @@ function QuestionsSee(props) {
             title: '班级',
             data: "考试班级",
             dataIndex: 'grade_name',
-            key: 2,      
+            key: 2,
         },
         {
 
@@ -58,14 +58,26 @@ function QuestionsSee(props) {
         {
 
             title: '开始时间',
-            dataIndex: new Date('start_time').toLocaleString(),
-            key: 4
+            dataIndex: 'start_time',
+            key: 4,
+            render: (item) => {
+                console.log(item)
+                return <>
+                    <p>{new Date(item * 1).toLocaleString()}</p>
+                </>
+            }
+
         },
         {
 
             title: '结束时间',
             dataIndex: 'end_time',
-            key: 5
+            key: 5,
+            render: (item) => {
+                return <>
+                    <p>{new Date(item * 1).toLocaleString()}</p>
+                </>
+            }
         },
         {
 
@@ -73,18 +85,11 @@ function QuestionsSee(props) {
             key: 6,
             render: (props) => (
                 // <Link to={path=`/exam/detail?id=${props.exam_exam_id}`}>详情</Link>
-                <Link to={{pathname:"/exam/detail",search:`id=${props.exam_exam_id}`}}>详情</Link>
+                <Link to={{ pathname: "/exam/detail", search: `id=${props.exam_exam_id}` }}>详情</Link>
                 // <Link to="/exam/detail">详情</Link>
             )
         },
     ];
-    
-    //moment(props.examlis.start_time).format('YYYY-MM-DD HH:mm:ss')
-
-    // function getLocalTime(nS) {     
-    //     return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
-    //  }     
-    //  alert(getLocalTime(1561012341559)); 
     const { getFieldDecorator } = props.form;
     return (
 
@@ -125,7 +130,7 @@ function QuestionsSee(props) {
                                 )}
                             </Form.Item>
                         </div>
-                        <Button type="primary" htmlType="submit" icon="search">查 询</Button>
+                        <Button type="primary" htmlType="submit" icon="search" onClick={handleSearch}>查 询</Button>
                     </div>
                 </div>
                 <div className="mainbox">
@@ -173,8 +178,7 @@ const mapDispatchToProps = dispatch => {
                 type: "exam/examList"
             })
         },
-        details()
-        {
+        details() {
             dispatch({
                 type: "exam/details"
             })

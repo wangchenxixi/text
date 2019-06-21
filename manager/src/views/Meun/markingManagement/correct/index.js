@@ -64,10 +64,11 @@ class QuestionsType extends Component {
         let { details11 } = this.props;
         let { Room1 } = this.props;
         let { subjectType } = this.props;
-
+        let {stList}=this.props;
         subjectType();
         details11()
         Room1()
+        stList()
         console.log(this.props)
     }
     render() {
@@ -81,13 +82,25 @@ class QuestionsType extends Component {
             },
             {
 
-                title: '课程名',
+                title: '课程名称',
                 dataIndex: 'subject_text',
                 key: 22
             },
             {
 
-                title: '教室号',
+                title: '阅卷状态',
+                dataIndex: 'room_text',
+                key: 335
+            },
+            {
+
+                title: '课程名称',
+                dataIndex: 'room_text',
+                key: 336
+            },
+            {
+
+                title: '成材率',
                 dataIndex: 'room_text',
                 key: 33
             },
@@ -97,9 +110,7 @@ class QuestionsType extends Component {
                 key: 34,
                 render: (text) => (
                     <span>
-                        <a onClick={() => { this.showModa(text) }}>修改</a>
-                        |
-                    <a onClick={() => { this.remove(text) }}>删除</a>
+                        <a onClick={() => { this.showModa(text) }}>批卷</a>
                     </span>
                 )
 
@@ -111,7 +122,7 @@ class QuestionsType extends Component {
         })
         return (
             <div className={typeStyle.wrap}>
-                <p className={typeStyle.title}>班级管理</p>
+                <p className={typeStyle.title}>待批班级</p>
                 <div className={typeStyle.bottom}>
                     <div>
                         <Button type="primary" onClick={this.typeAdd} icon="plus" size="large">
@@ -245,6 +256,7 @@ const mapStateToProps = (state) => {
         ...state.questions,
         ...state.updateclass,
         ...state.deleteclass,
+        ...state.stList
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -272,6 +284,10 @@ const mapDispatchToProps = (dispatch) => {
         deleteclass(payload) {
             console.log(payload)
             dispatch({ type: 'exam/deleteclass', payload })
+        },
+        stList(payload) {
+            console.log(payload)
+            dispatch({ type: 'exam/stList', payload })
         },
     }
 }

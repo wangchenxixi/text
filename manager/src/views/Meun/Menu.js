@@ -16,6 +16,10 @@ import ExamList from './examManagement/examList';
 import examDetails from "./examManagement/examDetails"
 import {connect} from 'dva';
 import grade from './classManagement/grade';
+import Class from './classManagement/class';
+import student from "./classManagement/student"
+import correct from "./markingManagement/correct"
+import examedit from "./examManagement/examedit"
 function ExaminationMenu(props){
     let menu = (
         <Menu>
@@ -62,10 +66,14 @@ function ExaminationMenu(props){
                         {/* 考试管理 */}
                         <Route path="/exam/add" component={ExamAdd}></Route>                                              
                         <Route path="/exam/list" component={ExamList}></Route>
-                      
+                        <Route path="/exam/edit" component={examedit}></Route>
                           {/* 班级管理 */}
                         <Route path="/class/management" component={grade}></Route>
                         <Route path="/exam/detail" component={examDetails}></Route>
+                        <Route path="/class/classroom" component={Class}></Route>
+                        <Route path="/class/student" component={student}></Route>
+                        {/* 阅卷管理 */}
+                        <Route path="/class/special" component={correct}></Route>
                     </Switch>
                 </Content>
             </div>
