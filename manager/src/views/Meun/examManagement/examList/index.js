@@ -16,7 +16,6 @@ function QuestionsSee(props) {
         props.subjectType();
         // 获取试卷列表
         props.examList();
-        props.details();
     }, [])
     console.log("props..", props);
 
@@ -141,9 +140,9 @@ function QuestionsSee(props) {
                     <div>
                         {
                             // console.log(new Date(parseInt(1560925939536) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '))
-                            console.log(moment(props.examlist.start_time).format('YYYY-MM-DD HH:mm:ss'))
+                            // console.log(moment(props.examlist.start_time).format('YYYY-MM-DD HH:mm:ss'))
                         }
-                        <Table columns={columns} dataSource={props.examlist} />
+                        <Table columns={columns} dataSource={props.typeList} />
                     </div>
                 </div>
             </Form>
@@ -176,11 +175,6 @@ const mapDispatchToProps = dispatch => {
         examList() {
             dispatch({
                 type: "exam/examList"
-            })
-        },
-        details() {
-            dispatch({
-                type: "exam/details"
             })
         }
     }

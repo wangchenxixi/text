@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "dva";
 import userAddStyle from './userAdd.scss'
-import { Form, Input, Button, Radio, Select, message } from 'antd';
+import { Form, Input, Button, Radio, Select,message} from 'antd';
 
-class AddUser extends Component {
-    constructor(props) {
+class AddUser extends Component{
+    constructor(props){
         super(props)
-        this.state = {
-            formLayout: 'horizontal',
-            flag: true,
-            success: null,
-            viewText: ''
+        this.state={
+            formLayout:'horizontal',
+            flag:true,
+            success:null,
+            viewText:''
         }
     }
-    componentDidMount() {
-        let { choiceID, userData, getADddView, getApiView } = this.props
+    componentDidMount(){
+        let { choiceID , userData , getADddView , getApiView} = this.props 
         choiceID()
         userData()
         getADddView()
@@ -22,77 +22,77 @@ class AddUser extends Component {
     }
     handleFormLayoutChange = e => {
         this.setState({
-            formLayout: e.target.value
+            formLayout:e.target.value
         })
-        this.state.formLayout === 'horizontal' ? this.setState({ flag: false }) : this.setState({ flag: true })
+        this.state.formLayout==='horizontal'?this.setState({flag:false}):this.setState({flag:true})
     }
-    upDataUser = (type) => {
+    upDataUser=(type)=>{
         console.log(type)
-        type === 'submit' ?
+       type==='submit'?
             this.props.form.validateFields((err, values) => {
                 if (!err) {
                     let { upDataId } = this.props
-                    values.upData && values.userId && values.userName && values.userPwd ? upDataId(values) : message.error('请输入身份')
+                    values.upData&&values.userId&&values.userName&&values.userPwd?upDataId(values):message.error('请输入身份')
                 }
-            }) : this.props.form.resetFields();
+            }):this.props.form.resetFields();
     }
-    addEdit = (type) => {
-        type === 'submit' ?
-            this.props.form.validateFields((err, values) => {
-                if (!err) {
-                    let { addEdit } = this.props
-                    values.identityName ? addEdit(values) : message.error('请输入身份')
-                }
-            }) : this.props.form.resetFields();
+    addEdit=(type)=>{
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addEdit } = this.props
+                values.identityName?addEdit(values):message.error('请输入身份')
+            }
+        }):this.props.form.resetFields();
     }
     addUser = (type) => {
-        type === 'submit' ?
-            this.props.form.validateFields((err, values) => {
-                if (!err) {
-                    let { addUser } = this.props
-                    addUser(values)
-                }
-            }) : this.props.form.resetFields();
-    };
-    addView = (type) => {
-        type === 'submit' ?
-            this.props.form.validateFields((err, values) => {
-                if (!err) {
-                    let { addViewData } = this.props
-                    values.identityName ? addViewData(values) : message.error('请选择身份id')
-                }
-            }) : this.props.form.resetFields();
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addUser} = this.props
+                addUser(values)
+            }
+        }):this.props.form.resetFields();
+    }; 
+    addView=(type)=>{
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addViewData} = this.props
+                values.identityName? addViewData(values):message.error('请选择身份id')
+            }
+        }):this.props.form.resetFields();
     }
-    addApi = (type) => {
-        type === 'submit' ?
-            this.props.form.validateFields((err, values) => {
-                if (!err) {
-                    let { addApi } = this.props
-                    values.apiIdentity && values.apiIdentityUr && values.apiIdentityFunc ? addApi(values) : message.error('请完善输入框的内容')
-                }
-            }) : this.props.form.resetFields();
+    addApi = (type) =>{
+        type==='submit'?
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let { addApi } = this.props
+                values.apiIdentity&&values.apiIdentityUr&&values.apiIdentityFunc?addApi(values):message.error('请完善输入框的内容')
+            }
+        }):this.props.form.resetFields();
     }
-    statusId = (type) => {
-        type === 'submit' ?
+    statusId = (type)=>{
+        type==='submit'?
             this.props.form.validateFields((err, values) => {
                 if (!err) {
                     let { setStatusView } = this.props;
-                    values.statusId && values.viewId ? setStatusView(values) : message.error('请完善输入框的内容')
+                    values.statusId&&values.viewId?setStatusView(values):message.error('请完善输入框的内容')
                 }
-            }) : this.props.form.resetFields();
+            }):this.props.form.resetFields();
     }
-    power = (type) => {
-        type === 'submit' ?
+    power=(type)=>{
+        type==='submit'?
             this.props.form.validateFields((err, values) => {
                 if (!err) {
-                    let { setApiView } = this.props
-                    values.setID && values.setPower ? setApiView(values) : message.error('请完善输入框的内容')
-                }
-            }) : this.props.form.resetFields();
+                let { setApiView } = this.props
+                values.setID&&values.setPower?setApiView(values):message.error('请完善输入框的内容')
+            }
+        }):this.props.form.resetFields();
     }
-    render() {
+    render(){
         const { Option } = Select;
-        let { getUserIDs, getUserDatas, viewData, getApiViewData } = this.props;
+        let { getUserIDs , getUserDatas , viewData , getApiViewData} = this.props;
         console.log(this.props)
         let { getFieldDecorator } = this.props.form;
         return (
@@ -101,7 +101,7 @@ class AddUser extends Component {
                 <div className={userAddStyle.bottom}>
                     <div className={userAddStyle.bottom_Top}>
                         <div className={userAddStyle.bottom_Center}>
-                            <Form style={{ marginLeft: '10px' }} onSubmit={this.addUser}>
+                            <Form style={{marginLeft:'10px'}} onSubmit={this.addUser}>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange} >
                                         <Radio.Button value="horizontal">添加用户</Radio.Button>
@@ -114,12 +114,12 @@ class AddUser extends Component {
                                             <Select
                                                 showSearch
                                                 style={{ width: 200 }}
-                                                placeholder="请选择身份id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
-                                                style={this.state.flag ? { display: 'none' } : { display: 'block' }}
+                                                style={this.state.flag?{display:'none'}:{display:'block'}}
                                             >
                                                 {
-                                                    getUserDatas.map((item, index) => {
+                                                    getUserDatas.map((item,index)=>{
                                                         return <Option value={item.user_id} key={index}>{item.user_name}</Option>
                                                     })
                                                 }
@@ -136,8 +136,8 @@ class AddUser extends Component {
                                 </Form.Item>
                                 <Form.Item>
                                     {
-                                        getFieldDecorator('userPwd', {
-                                            rules: [{ pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/, message: '请输入正确的密码!' }]
+                                        getFieldDecorator('userPwd',{
+                                            rules:[{pattern: /^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).*$/,message: '请输入正确的密码!'}]
                                         })(
                                             <Input placeholder="请输入密码" />
                                         )
@@ -151,19 +151,19 @@ class AddUser extends Component {
                                                 style={{ width: 200 }}
                                                 placeholder="请选则身份id"
                                                 optionFilterProp="children"
-                                            >
-                                                {
-                                                    getUserIDs.map((item, index) => {
-                                                        return <Option value={item.identity_id} key={index}>{item.identity_text}</Option>
-                                                    })
-                                                }
+                                            >      
+                                            {
+                                                getUserIDs.map((item,index)=>{
+                                                    return <Option value={item.identity_id} key={index}>{item.identity_text}</Option>
+                                                })
+                                            }
                                             </Select>
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item >
-                                    <Button type="primary" onClick={() => { this.state.flag ? this.addUser('submit') : this.upDataUser('submit') }}>提交</Button>
-                                    <Button type="primary" style={{ marginLeft: '10px', background: '#fff', color: '#ccc' }} onClick={() => { this.state.flag ? this.addUser('sub') : this.upDataUser('sub') }}>重置</Button>
+                                    <Button type="primary" onClick={()=>{this.state.flag?this.addUser('submit'):this.upDataUser('submit')}}>提交</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.state.flag?this.addUser('sub'):this.upDataUser('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
@@ -182,12 +182,12 @@ class AddUser extends Component {
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" onClick={() => { this.addEdit('submit') }}>提交</Button>
-                                    <Button type="primary" style={{ marginLeft: '10px', background: '#fff', color: '#ccc' }} onClick={() => { this.addEdit('sub') }}>重置</Button>
+                                    <Button type="primary" onClick={()=>{this.addEdit('submit')}}>提交</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addEdit('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form >
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" >
@@ -216,17 +216,17 @@ class AddUser extends Component {
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" onClick={() => { this.addApi('submit') }}>提交</Button>
-                                    <Button type="primary" style={{ marginLeft: '10px', background: '#fff', color: '#ccc' }} onClick={() => { this.addApi('sub') }}>重置</Button>
+                                    <Button type="primary" onClick={()=>{this.addApi('submit')}}>提交</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addApi('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                     </div>
                     <div className={userAddStyle.bottom_Bottom}>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form>
                                 <Form.Item>
-                                    <Radio.Group defaultValue="horizontal" style={{ marginLeft: '10px' }}>
+                                    <Radio.Group defaultValue="horizontal" style={{marginLeft:'10px'}}>
                                         <Radio.Button value="horizontal">添加视图接口</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
@@ -236,28 +236,28 @@ class AddUser extends Component {
                                             <Select
                                                 showSearch
                                                 style={{ width: 200 }}
-                                                placeholder="请选择已有视图"
+                                                placeholder="请选则身份id"
                                                 optionFilterProp="children"
                                                 onChange={this.select}
-                                            >
-                                                {
-                                                    viewData.map((item, index) => {
-                                                        return <Option value={item.view_authority_id} key={index}>{item.view_authority_text}</Option>
-                                                    })
-                                                }
+                                            >      
+                                            {
+                                                viewData.map((item,index)=>{
+                                                    return <Option value={item.view_authority_id} key={index}>{item.view_authority_text}</Option>
+                                                })
+                                            }
                                             </Select>
                                         )
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" onClick={() => { this.addView('submit') }}>提交</Button>
-                                    <Button type="primary" style={{ marginLeft: '10px', background: '#fff', color: '#ccc' }} onClick={() => { this.addView('sub') }}>重置</Button>
+                                    <Button type="primary" onClick={()=>{this.addView('submit')}}>提交</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addView('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form>
-                                <Form.Item>
+                            <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
                                         <Radio.Button value="horizontal">给身份设置api接口权限</Radio.Button>
                                     </Radio.Group>
@@ -267,11 +267,11 @@ class AddUser extends Component {
                                         getFieldDecorator('setID')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择身份id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
-                                                    getUserIDs.map((item, index) => {
+                                                     getUserIDs.map((item,index)=>{
                                                         return <Option value={item.identity_id} key={index}>{item.identity_text}</Option>
                                                     })
                                                 }
@@ -284,11 +284,11 @@ class AddUser extends Component {
                                         getFieldDecorator('setPower')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择api接口权限"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
-                                                    getApiViewData.map((item, index) => {
+                                                    getApiViewData.map((item,index)=>{
                                                         return <Option value={item.identity_api_authority_relation_id} key={index}>{item.api_authority_text}</Option>
                                                     })
                                                 }
@@ -297,12 +297,12 @@ class AddUser extends Component {
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" onClick={() => { this.power('submit') }}>提交</Button>
-                                    <Button type="primary" style={{ marginLeft: '10px', background: '#fff', color: '#ccc' }} onClick={() => { this.power('sub') }}>重置</Button>
+                                    <Button type="primary" onClick={()=>{this.power('submit')}}>提交</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.power('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div className={userAddStyle.bottom_Center}>
+                        <div>
                             <Form>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
@@ -314,11 +314,11 @@ class AddUser extends Component {
                                         getFieldDecorator('statusId')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择身份id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
-                                                    getUserIDs.map((item, index) => {
+                                                     getUserIDs.map((item,index)=>{
                                                         return <Option value={item.identity_id} key={index}>{item.identity_text}</Option>
                                                     })
                                                 }
@@ -331,11 +331,11 @@ class AddUser extends Component {
                                         getFieldDecorator('viewId')(
                                             <Select
                                                 showSearch
-                                                placeholder="请选择视图权限id"
+                                                placeholder="Select a person"
                                                 optionFilterProp="children"
                                             >
                                                 {
-                                                    viewData.map((item, index) => {
+                                                viewData.map((item,index)=>{
                                                         return <Option value={item.view_authority_id} key={index}>{item.view_authority_text}</Option>
                                                     })
                                                 }
@@ -344,8 +344,8 @@ class AddUser extends Component {
                                     }
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" onClick={() => { this.statusId('submit') }}>提交</Button>
-                                    <Button type="primary" style={{ marginLeft: '10px', background: '#fff', color: '#ccc' }} onClick={() => { this.statusId('sub') }}>重置</Button>
+                                    <Button type="primary" onClick={()=>{this.statusId('submit')}}>提交</Button>
+                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.statusId('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
@@ -365,43 +365,43 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        choiceID() {
-            dispatch({ type: 'user/userID' })
+        choiceID(){
+            dispatch({type:'user/userID'})
         },
-        addUser(payload) {
-            dispatch({ type: 'user/addUsers', payload: payload })
+        addUser(payload){
+            dispatch({type:'user/addUsers',payload:payload})
         },
-        userData() {
-            dispatch({ type: 'user/userData' })
+        userData(){
+            dispatch({type:'user/userData'})
         },
-        addEdit(payload) {
-            dispatch({ type: 'user/editData', payload: payload })
+        addEdit(payload){
+            dispatch({type:'user/editData',payload:payload})
         },
-        addApi(payload) {
-            dispatch({ type: 'user/ApiData', payload: payload })
+        addApi(payload){
+            dispatch({type:'user/ApiData',payload:payload})
         },
-        getADddView() {
-            dispatch({ type: 'user/getView' })
+        getADddView(){
+            dispatch({type:'user/getView'})
         },
-        addViewData(payload) {
-            dispatch({ type: 'user/addViews', payload: payload })
+        addViewData(payload){
+            dispatch({type:'user/addViews',payload:payload})
         },
-        getApiView() {
-            dispatch({ type: 'user/getApiViews' })
+        getApiView(){
+            dispatch({type:'user/getApiViews'})
         },
-        setApiView(payload) {
-            dispatch({ type: 'user/getApiViewData', payload: payload })
+        setApiView(payload){
+            dispatch({type:'user/getApiViewData',payload:payload})
         },
-        setStatusView(payload) {
-            dispatch({ type: 'user/getApiStatus', payload: payload })
+        setStatusView(payload){
+            dispatch({type:'user/getApiStatus',payload:payload})
         },
-        upDataId(payload) {
-            dispatch({ type: 'user/upDataUser', payload: payload })
+        upDataId(payload){
+            dispatch({type:'user/upDataUser',payload:payload})
         }
     };
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Form.create()(AddUser));

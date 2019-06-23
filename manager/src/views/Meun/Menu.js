@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './Meun.css';
-import { Menu, Dropdown, Layout, LocaleProvider  } from 'antd';
-import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import { Menu, Dropdown, Layout  } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
+import { connect } from 'dva'
 import MenuView from '@/components/menu.js'
 import QuestionsAdd from './questionsManagement/questionsAdd/questionsAdd'
 import QuestionsType from './questionsManagement/QuestionsType/QuestionsType'
@@ -12,14 +12,12 @@ import QuestionsEdit from './questionsManagement/questionsEdit/questionsEdit';
 import UserSee from './userManagement/userSee';
 import userAdd from './userManagement/userAdd';
 import ExamAdd from './examManagement/examAdd';
-import ExamList from './examManagement/examList';
-import examDetails from "./examManagement/examDetails"
-import {connect} from 'dva';
-import grade from './classManagement/grade';
-import Class from './classManagement/class';
-import student from "./classManagement/student"
-import correct from "./markingManagement/correct"
-import examedit from "./examManagement/examedit"
+import ExamList from './examManagement/examList/index';
+import Examedit from "./examManagement/examDetails/index";
+import ClassManagement from './classManagement/classManagement/classManagement'
+import ClassRoom from './classManagement/classRoom/classromm'
+import ClassStudent from './classManagement/classStudent/index'
+
 function ExaminationMenu(props){
     let menu = (
         <Menu>
@@ -27,7 +25,6 @@ function ExaminationMenu(props){
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
             <Menu.Item key="4">退出登录</Menu.Item>
-            <Menu.Item onClick={()=>props.changeLocal(props.locale==='zh'?'en':'zh')}>{props.locale==='zh'?'中文':'英文'}</Menu.Item>
         </Menu>
     );
     const { Header, Content } = Layout;
@@ -45,10 +42,11 @@ function ExaminationMenu(props){
                                 </a>
                             </Dropdown>
                         }
+                        <button onClick={()=>{props.changeLocal(props.locale==='zh'?'en':'zh')}}>{props.locale==='zh'?'英文':'中文'}</button>
                     </div>
                 </div>
+                
             </Header>
-            <LocaleProvider locale={zh_CN}>
             <div className={styles.section}>
                 <MenuView />
                 <Content style={{ overflow: 'auto' }} className={styles.main}>
@@ -66,38 +64,27 @@ function ExaminationMenu(props){
                         {/* 考试管理 */}
                         <Route path="/exam/add" component={ExamAdd}></Route>                                              
                         <Route path="/exam/list" component={ExamList}></Route>
-                        <Route path="/exam/edit" component={examedit}></Route>
-                          {/* 班级管理 */}
-                        <Route path="/class/management" component={grade}></Route>
-                        <Route path="/exam/detail" component={examDetails}></Route>
-                        <Route path="/class/classroom" component={Class}></Route>
-                        <Route path="/class/student" component={student}></Route>
-                        {/* 阅卷管理 */}
-                        <Route path="/class/special" component={correct}></Route>
+                        <Route path="/exam/detail" component={Examedit}></Route>
+                        {/* 班级管理 */}
+                        <Route path="/class/management" component={ClassManagement}></Route>                                              
+                        <Route path="/class/classroom" component={ClassRoom}></Route>
+                        <Route path="/class/student" component={ClassStudent}></Route>
                     </Switch>
                 </Content>
             </div>
-            </LocaleProvider>
         </Layout>
     )
 }
-
-const mapStateToProps = state=>{
-    console.log('state..', state);
+const mapStateToProps=state=>{
     return {
-      loading: state.loading.global,
-      locale: state.global.locale
+        locale:state.global.locale
     }
-  }
-  
-  const mapDispatchToProps = dispatch=>{
+}
+const mapDispatchToProps=dispatch=>{
     return {
-      changeLocal: payload=>{
-        dispatch({
-          type: 'global/changeLocale',
-          payload
-        })
-      }
+        changeLocal(payload){
+            dispatch({type:'global/changeLocale',payload})
+        }
     }
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(ExaminationMenu)
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ExaminationMenu)

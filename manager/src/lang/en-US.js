@@ -1,5 +1,4 @@
 export default {
-    //试题管理
     "router.questions": "QuestionMange",
     "router.questions.add": "AddQuestions",
     "router.questions.type": "QuestionsType",
@@ -20,5 +19,4 @@ export default {
     //阅卷管理
     "router.look":"Look",
     "router.Awaiting":"lookAwaiting",
-    
 }

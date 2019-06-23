@@ -132,7 +132,7 @@ class QuestionsType extends Component {
                                 <Form.Item>
                                     {getFieldDecorator('note', {
                                         rules: [{ required: true, message: 'Please input your note!' }],
-                                    })(<Input style={{ width: 150}} placeholder="输入学生姓名"/>)}
+                                    })(<Input style={{ width: 150,float:"left"}} placeholder="输入学生姓名"/>)}
                                 </Form.Item>
                                 <Form.Item>
                                     {getFieldDecorator('room_text', {
@@ -140,15 +140,13 @@ class QuestionsType extends Component {
                                     })(
                                         <Select
                                             placeholder="请选择教室号"
-                                            onChange={this.handleSelectChange} style={{ width: 200}} 
+                                            onChange={this.handleSelectChange} style={{ width: 200,float:"left"}} 
                                         >
-                                           {
-                                                // console.log(this.props.exam)
-                                                this.props.room.map(item=>{
-                                                    return <Option value={item.room_text}>{item.room_text}</Option>
-                                                })
-                                            
-                                            }
+                                            {
+                                           this.props.room.map(item=>{
+                                            return <Option value={item.room_text}>{item.room_text}</Option>
+                                        })
+                                    }
                                         </Select>
                                     )}
                                 </Form.Item>
@@ -218,13 +216,6 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        exam() {
-            dispatch({ type: 'exam/getQuestionsType' })
-        },
-        examadd(payload) {
-            console.log(payload)
-            dispatch({ type: 'exam/insertQuestionsType', payload })
-        },
         details11(payload) {
             console.log(payload)
             dispatch({ type: 'exam/details11', payload })

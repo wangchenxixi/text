@@ -9,7 +9,7 @@ function QuestionsSee(props) {
         // 获取试卷列表
         props.detail(window.location.hash.split('=')[1])
     }, [])
-    console.log("props..", props.exam.detail.questions);
+    console.log("props..", props);
 
     const { getFieldDecorator } = props.form;
     return (

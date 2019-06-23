@@ -1,5 +1,4 @@
-export default {
-    //试题管理
+export default{
     "router.questions": "试题管理",
     "router.questions.add": "添加试题",
     "router.questions.type": "试题分类",

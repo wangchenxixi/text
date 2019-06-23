@@ -8,9 +8,8 @@ const MenuView = (props) => {
     return (
         <Sider style={{ overflow: 'auto', height: '100%', left: 0, width: '100%' }}>
             <Menu theme="dark"
-                mode="inline"
                 defaultOpenKeys={['questions']}
-            >
+                mode="inline">
                 <SubMenu
                     key="sub1"
                     title={

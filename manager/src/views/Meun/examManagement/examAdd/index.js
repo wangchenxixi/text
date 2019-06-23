@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
 import { connect } from "dva";
-import { Form, Input, Button, Select, InputNumber, DatePicker, message } from 'antd';
+import { Form, Input, Button, Select, InputNumber, DatePicker,message } from 'antd';
 // import moment from 'moment';
 import './examAdd.scss';
 
 function AddUser(props) {
-    useEffect(() => {
-        // 获取考试类型
-        props.examType();
-        // 获取课程类型
-        props.subjectType();
-        props.getQuestion();
-        if (props.examAddFlag === 1) {
+    useEffect(()=>{
+         // 获取考试类型
+         props.examType();
+         // 获取课程类型
+         props.subjectType();
+
+        if(props.examAddFlag === 1){
             message.success('添加考试成功！')
-           
-        } else if (props.examAddFlag === -1) {
+        }else if(props.examAddFlag === -1){
             message.success('添加考试失败！')
         }
-    }, [props.examAddFlag]);
+    },[props.examAddFlag]);
     // 表单提交
     let handleSubmit = e => {
         e.preventDefault();
@@ -29,7 +28,7 @@ function AddUser(props) {
                 console.log('Received values of form: ', values);
                 // 添加考试
                 props.examAdd(values);
-                props.history.push('/exam/edit') 
+                props.history.push('/exam/compile')
             }
         });
     }
@@ -56,11 +55,11 @@ function AddUser(props) {
                         initialValue: ''
                     })(
                         <Select style={{ width: 160 }}>
-                            {
-                                props.examTypeData.map(item => (
-                                    <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
-                                ))
-                            }
+                        {                
+                            props.examTypeData.map(item=>(
+                                <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
+                            ))
+                        }                       
                         </Select>
                     )}
                 </Form.Item>
@@ -70,11 +69,11 @@ function AddUser(props) {
                         initialValue: ''
                     })(
                         <Select style={{ width: 160 }}>
-                            {
-                                props.subjectTypeData.map(item => (
-                                    <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
-                                ))
-                            }
+                        {                
+                            props.subjectTypeData.map(item=>(
+                                <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
+                            ))
+                        }
                         </Select>
                     )}
                 </Form.Item>
@@ -89,22 +88,23 @@ function AddUser(props) {
                     )}
                 </Form.Item>
                 <Form.Item label="考试时间：" style={{ marginBottom: 0 }}>
-                    <Form.Item style={{ display: 'inline-block' }}>
+                    <Form.Item style={{ display: 'inline-block'}}>
                         {getFieldDecorator('start_time', {
                             rules: [{ required: true, message: '请选择开始时间!' }],
                             // initialValue: moment('2015/01/01', dateFormat)
                         })(
-                            <DatePicker placeholder="开始时间" />
-                        )}
+                            // <DatePicker placeholder="开始时间"/>
+                            <DatePicker showTime placeholder="Start Time" />
+                        )}                  
                     </Form.Item>
                     <span style={{ display: 'inline-block', width: '24px', textAlign: 'center' }}>-</span>
-                    <Form.Item style={{ display: 'inline-block' }}>
-                        {getFieldDecorator('end_time', {
-                            rules: [{ required: true, message: '请选择结束时间!' }],
-                            // initialValue: moment('2015/01/01', dateFormat)
-                        })(
-                            <DatePicker placeholder="结束时间" />
-                        )}
+                    <Form.Item style={{ display: 'inline-block'}}>
+                    {getFieldDecorator('end_time', {
+                        rules: [{ required: true, message: '请选择结束时间!' }],
+                        // initialValue: moment('2015/01/01', dateFormat)
+                    })(
+                        <DatePicker showTime placeholder="End Time" />
+                    )}
                     </Form.Item>
                 </Form.Item>
 
@@ -123,34 +123,28 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         // 获取考试类型
-        examType() {
+        examType(){
             dispatch({
-                type: "questions/examType"
+                type:"questions/examType"
             })
         },
         // 获取课程类型
-        subjectType() {
+        subjectType(){
             dispatch({
-                type: "questions/subjectType"
+                type:"questions/subjectType"
             })
         },
         // 添加考试
-        examAdd(payload) {
+        examAdd(payload){
             dispatch({
                 type: "questions/examAdd",
                 payload
             })
-        },
-        getQuestion(payload) {
-            dispatch({
-                type: "questions/getQuestion",
-                payload
-            })
-        },
+        }
     };
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Form.create()(AddUser));
