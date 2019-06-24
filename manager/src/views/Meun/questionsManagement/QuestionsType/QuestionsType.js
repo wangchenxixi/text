@@ -12,7 +12,6 @@ class QuestionsType extends Component{
             num:0,
             selectedRowKeys: [],
         }
-        console.log(props.exam)
     }
     handleCancel = e => {
         this.setState({

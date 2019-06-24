@@ -77,3 +77,13 @@ export function examList(params){
         params
     })
 }
+
+// 创建试卷
+export function createExamGet(params,id){
+    console.log(params,id)
+    return request({
+        url:'/exam/exam/'+id,
+        method:'PUT',
+        data:params
+    })
+}

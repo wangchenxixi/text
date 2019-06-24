@@ -1,4 +1,4 @@
-import { getClassData, getClassNameData, getExamType , addClass , updataClass , remoteClassRoom , addClassRoom , remoteClassroom , getGradeDatas , getStudent} from '@/services'
+import { getClassData, getClassNameData, getExamType , addClass , updataClass , remoteClassRoom , addClassRoom , remoteClassroom , getGradeDatas , getStudent , remoteStuden , getClassStued} from '@/services'
 import { message } from 'antd'
 export default {
     // 命名空间
@@ -10,7 +10,8 @@ export default {
         getClassRoomDataS:[],
         getClassType:[],
         getGradeViewData:[],
-        getStudentDatas:[]
+        getStudentDatas:[],
+        getStudentDatasAll: []
     },
 
     // 异步操作
@@ -69,6 +70,13 @@ export default {
                 type:'getStudestData',
                 action:data.data
             })
+        },
+        *remoteS({payload},{call,put}){
+            let data=yield call(remoteStuden,payload);
+            data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        *getClassStund({payload},{call,put}){
+             yield call(getClassStued,payload)
         }
     },
 
@@ -101,7 +109,20 @@ export default {
         getStudestData(state,{action}){
             return{
                 ...state,
-                getStudentDatas:action
+                getStudentDatas:action,
+                getStudentDatasAll: action
+            }
+        },
+        filterStudentData(state, {action}){
+            console.log(action);
+            
+            return {
+                ...state,
+                getStudentDatas: state.getStudentDatasAll.filter(item => {
+                    return item.student_name.includes(action.studentName) &&
+                        item.room_text.includes(action.roomName) &&
+                        item.grade_name.includes(action.classNames);
+                })
             }
         }
     }

@@ -32,7 +32,12 @@ class ClassManagement extends Component{
                     visible:false
                 })
                 let { addClass } = this.props
-                values.classRoomName&&values.curriculumName?(addClass(values),this.props.form.resetFields()):message.error('请将参数填写完整');
+                if(values.classRoomName&&values.curriculumName){
+                    addClass(values)
+                    this.props.form.resetFields()
+                }else{
+                    message.error('请将参数填写完整');
+                }
             }else{
                 this.setState({
                     visible:false
@@ -49,7 +54,12 @@ class ClassManagement extends Component{
                     visibleUpdata:false
                 })
                 let { updataClass } = this.props
-                values.classRoomName&&values.curriculumName?(updataClass(values),this.props.form.resetFields()):message.error('请将参数填写完整');
+                if(values.classRoomName&&values.curriculumName){
+                    updataClass(values)
+                    this.props.form.resetFields()
+                }else{
+                    message.error('请将参数填写完整')
+                }
             }else{
                 this.setState({
                     visibleUpdata:false

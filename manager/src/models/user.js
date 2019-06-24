@@ -1,7 +1,9 @@
-import { login, userInfo, getUserId, getData, userAdd,editAdd,apiAdd,getAddViews,setAddViews,getApiData,getApiView,getApiViewStatus,upDateUserId,userShow,userIdentity,userApi,userIdentity_api,userView_authority,userIdentity_view} from '@/services'
+import { login, userInfo, getUserId, getData, userAdd,editAdd,apiAdd,getAddViews,setAddViews,getApiData,getApiView,getApiViewStatus,upDateUserId,userShow,userIdentity,userApi,userIdentity_api,userView_authority,userIdentity_view,getViewAuthority} from '@/services'
 import { setToken, getToken } from '@/utils/user';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
+// 引入路由表
+import allView from '@/router/config.js';
 
 export default {
     // 命名空间
@@ -28,7 +30,11 @@ export default {
         getUserDatas:[],
         addUserCode:0,
         viewData:[],
-        getApiViewData:[]
+        getApiViewData:[],
+
+        viewAuthority: [],  // 用户所拥有的视图权限
+        myView: [],  // 拥有权限的前端路由
+        forbiddenView: [] //没有权限访问的路由
     },
 
     // 订阅路由跳转
@@ -38,15 +44,21 @@ export default {
             history
         }) { // eslint-disable-line
             return history.listen(({ pathname }) => {
+                // 1. 判断去的页面是否是登录页
                 if(pathname.indexOf('/login') === -1){
                     // 不去登录页；做token检测
                     // 如果没有登录跳到登录页
                     if(!getToken()){
-                        // 利用redux做路由跳转
+                        // 1.1 有登录态，利用redux做路由跳转
                         dispatch(routerRedux.replace({
                             pathname: `/login`,
                             search: `?redirect=${encodeURIComponent(pathname)}`
                         }))
+                    }else{
+                        // 1.2 有登录态，请求用户信息，请求用户权限
+                        dispatch({
+                            type: 'getUserInfoAll'
+                        })
                     }
                 }else{
                     // 去登录页，如果已经登录跳回首页
@@ -63,10 +75,7 @@ export default {
     // 异步操作
     effects: {
         *login({payload},{call,put}){
-            // console.log('payload...',payload)
             let data = yield call(login,payload)
-            // console.log('data...',data)
-
             // 设置登录态到cookie里
             if(data.code === 1){
                 setToken(data.token)
@@ -79,7 +88,6 @@ export default {
         },
         *userInfo({payload},{call,put}){
             let data = yield call(userInfo);
-            // console.log(data);
             yield put({
                 type: 'getUserInfo',
                 action: data.data
@@ -88,7 +96,6 @@ export default {
         // 用户数据
         *userShow({payload},{call,put}){
             let data = yield call(userShow);
-            // console.log(data);
             yield put({
                 type: 'getUserShow',
                 action: data.data
@@ -97,7 +104,6 @@ export default {
         // 身份数据
         *userIdentity({payload},{call,put}){
             let data = yield call(userIdentity);
-            // console.log(data);
             yield put({
                 type: 'getUserIdentity',
                 action: data.data
@@ -106,7 +112,6 @@ export default {
         // api接口权限
         *userApi({payload},{call,put}){
             let data = yield call(userApi);
-            console.log(data);
             yield put({
                 type: 'getUserApi',
                 action: data.data
@@ -115,7 +120,6 @@ export default {
         // 身份和api权限关系  
         *userIdentity_api({payload},{call,put}){
             let data = yield call(userIdentity_api);
-            console.log(data);
             yield put({
                 type: 'getUserIdentity_api',
                 action: data.data
@@ -124,7 +128,6 @@ export default {
         // 视图接口权限   
         *userView_authority({payload},{call,put}){
             let data = yield call(userView_authority);
-            console.log(data);
             yield put({
                 type: 'getUserView_authority',
                 action: data.data
@@ -133,7 +136,6 @@ export default {
         // 身份和视图权限关系
         *userIdentity_view({payload},{call,put}){
             let data = yield call(userIdentity_view);
-            console.log(data);
             yield put({
                 type: 'getUserIdentity_view',
                 action: data.data
@@ -149,7 +151,6 @@ export default {
         },
         *userData({payload},{call,put}){
             let data = yield call(getData)
-            console.log(data.data)
             yield put({
                 type:'getUserData',
                 action:data.data
@@ -180,7 +181,6 @@ export default {
         },
         *getApiViews({payload},{call,put}){
             let data = yield call(getApiData)
-            console.log(data)
             yield put({
                 type:'getApiViewS',
                 action:data.data
@@ -192,13 +192,34 @@ export default {
         },
         *getApiStatus({payload},{call,put}){
             let data=yield call(getApiViewStatus,payload)
-            console.log(data)
             data.code===1?message.success(data.msg):message.error(data.msg)
         },
         *upDataUser({payload},{call,put}){
             let data=yield call(upDateUserId,payload)
-            console.log(data)
             data.code===1?message.success(data.msg):message.error(data.msg)
+        },
+        // 请求用户信息，请求用户权限
+        *getUserInfoAll({payload},{call, put, select}){
+            // 1. 判断是否有权限信息
+            let myView = yield select(state=>state.user.myView);
+            // console.log('请求用户信息...',myView)
+            if(myView.length){
+                return;
+            }
+            // 2. 获取用户信息
+            let datas = yield call(userInfo);
+            // console.log('获取用户信息...',datas);
+            yield put({
+                type: 'getUserInfo',
+                action: datas.data
+            });
+            // 3. 根据id获取视图权限
+            let viewAuthority = yield call(getViewAuthority, datas.data.user_id);
+            // console.log('根据id获取视图权限...',viewAuthority)
+            yield put({
+                type: 'updateViewAuthority',
+                action: viewAuthority.data
+            })
         }
     },
 
@@ -280,6 +301,28 @@ export default {
             return {
                 ...state,
                 getApiViewData:action
+            }
+        },
+        // 3. 根据id获取视图权限
+        updateViewAuthority(state,{action}){
+            // 筛选出所有的前端路由权限
+            let myView = allView.routes;
+            let forbiddenView = [];
+            myView.forEach(item => {
+                item.children = item.children.filter(value => {
+                    if(action.findIndex(id => id.view_id===value.id) !== -1){
+                        return true;
+                    }else{
+                        forbiddenView.push(value.path);
+                        return false;
+                    }
+                })
+            })
+            return {
+                ...state,
+                viewAuthority: action,
+                myView,
+                forbiddenView
             }
         }
     },

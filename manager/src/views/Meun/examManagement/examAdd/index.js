@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "dva";
 import { Form, Input, Button, Select, InputNumber, DatePicker,message } from 'antd';
-// import moment from 'moment';
+import locale from 'antd/lib/date-picker/locale/zh_CN';
 import './examAdd.scss';
 
 function AddUser(props) {
+    console.log(props)
     useEffect(()=>{
          // 获取考试类型
          props.examType();
@@ -13,6 +14,11 @@ function AddUser(props) {
 
         if(props.examAddFlag === 1){
             message.success('添加考试成功！')
+            // 修改 examAddFlag的状态
+            props.examAddFlagFn();
+            // 跳转到 examEdit
+            props.history.push('/exam/edit');
+            
         }else if(props.examAddFlag === -1){
             message.success('添加考试失败！')
         }
@@ -28,12 +34,11 @@ function AddUser(props) {
                 console.log('Received values of form: ', values);
                 // 添加考试
                 props.examAdd(values);
-                props.history.push('/exam/compile')
             }
         });
     }
+
     const { Option } = Select;
-    // const dateFormat = 'YYYY/MM/DD';
     const { getFieldDecorator } = props.form;
     return <div className="exam-wrapper">
         <h2 className="user-title">添加考试</h2>
@@ -91,19 +96,24 @@ function AddUser(props) {
                     <Form.Item style={{ display: 'inline-block'}}>
                         {getFieldDecorator('start_time', {
                             rules: [{ required: true, message: '请选择开始时间!' }],
-                            // initialValue: moment('2015/01/01', dateFormat)
                         })(
-                            // <DatePicker placeholder="开始时间"/>
-                            <DatePicker showTime placeholder="Start Time" />
+                            <DatePicker placeholder="开始时间" 
+                                format="YYYY-MM-DD HH:mm"
+                                showTime={{ format: 'HH:mm' }}
+                                locale={locale}
+                            />
                         )}                  
                     </Form.Item>
                     <span style={{ display: 'inline-block', width: '24px', textAlign: 'center' }}>-</span>
                     <Form.Item style={{ display: 'inline-block'}}>
                     {getFieldDecorator('end_time', {
                         rules: [{ required: true, message: '请选择结束时间!' }],
-                        // initialValue: moment('2015/01/01', dateFormat)
                     })(
-                        <DatePicker showTime placeholder="End Time" />
+                        <DatePicker placeholder="结束时间"
+                            format="YYYY-MM-DD HH:mm"
+                            showTime={{ format: 'HH:mm' }}
+                            locale={locale}
+                        />
                     )}
                     </Form.Item>
                 </Form.Item>
@@ -139,6 +149,12 @@ const mapDispatchToProps = dispatch => {
             dispatch({
                 type: "questions/examAdd",
                 payload
+            })
+        },
+        // 修改 examAddFlag的状态
+        examAddFlagFn(){
+            dispatch({
+                type: "questions/examAddFlagFn",
             })
         }
     };
