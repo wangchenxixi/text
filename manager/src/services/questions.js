@@ -88,7 +88,7 @@ export function details(params) {
 //获取所有没有分班的学生接口
 export function Newstudent(params) {
     return request({
-        url: '/manger/student/new',
+        url: '/manger/student',
         method: 'GET',
         params
     })
@@ -109,3 +109,24 @@ export function details11(params) {
         params
     })
 }
+//删除学生接口
+export function delstudent(params) {
+    console.log(params);
+    return request({
+        data:{
+            student_id:params
+        },
+        url: `/manger/student/:id=>${params}`,
+        method: 'DELETE',
+        params
+    })
+}
+//获取学生试卷列表
+export function studentList(params) {
+    return request({
+        url: '/exam/student',
+        method: 'GET',
+        params
+    })
+}
+

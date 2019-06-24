@@ -1,4 +1,4 @@
-import {exam,examadd,getDetailData,examList,details,Newstudent,Room1,details11} from '@/services'
+import {exam,examadd,getDetailData,examList,details,Newstudent,Room1,details11,delstudent,studentList} from '@/services'
 export default {
     // 命名空间
     namespace: 'exam',
@@ -10,7 +10,9 @@ export default {
         detail:[],
         newstudent:[],
         room:[],
-        detail1:[]
+        detail1:[],
+        delst:[],
+        stuList:[]
     },
 
     // 订阅路由跳转
@@ -84,6 +86,23 @@ export default {
                 action: data.data
             });
         },
+           //删除学生
+           *delstudent({ payload }, { call, put }) {
+            let data = yield call(delstudent, payload)
+            console.log(data)
+            yield put({
+                type: 'delstudentdata',
+                action: data.data
+            });
+        },
+        *studentList({ payload }, { call, put }) {
+            let data = yield call(studentList, payload)
+            console.log(data)
+            yield put({
+                type: 'studentListdata',
+                action: data.data
+            });
+        },
      
     },
 
@@ -123,6 +142,18 @@ export default {
             return {
                 ...state,
                 detail1: action
+            };
+        },
+        delstudentdata(state, { action }) {
+            return {
+                ...state,
+                delst: action
+            };
+        },
+        studentListdata(state, { action }) {
+            return {
+                ...state,
+                stuList: action
             };
         },
     },

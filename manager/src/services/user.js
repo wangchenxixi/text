@@ -205,4 +205,10 @@ export function userIdentity_view(){
         method:'GET'
     })
 }
+// // 获取用户权限
+// export function getViewAuthority(user_id){
+//     return request({
+//       url: '/user/new?user_id='+user_id
+//     })
+//   }
 

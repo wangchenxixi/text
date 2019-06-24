@@ -17,7 +17,8 @@ import Examedit from "./examManagement/examDetails/index";
 import ClassManagement from './classManagement/classManagement/classManagement'
 import ClassRoom from './classManagement/classRoom/classromm'
 import ClassStudent from './classManagement/classStudent/index'
-
+import ClassSpecial from "./markingManagement/ClassSpecial/classManagement"
+import classmate from './markingManagement/classmate';
 function ExaminationMenu(props){
     let menu = (
         <Menu>
@@ -69,6 +70,9 @@ function ExaminationMenu(props){
                         <Route path="/class/management" component={ClassManagement}></Route>                                              
                         <Route path="/class/classroom" component={ClassRoom}></Route>
                         <Route path="/class/student" component={ClassStudent}></Route>
+                        <Route path="/class/special" component={ClassSpecial}></Route>
+                        <Route path="/class/classmate" component={classmate}></Route>
+                        {/* 阅卷管理 */}
                     </Switch>
                 </Content>
             </div>

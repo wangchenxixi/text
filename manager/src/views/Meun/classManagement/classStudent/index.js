@@ -128,11 +128,11 @@ class QuestionsType extends Component {
                 <div className={typeStyle.bottom}>
                     <div>
                         <div>
-                            <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }} onSubmit={this.handleSubmit}>
+                            <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }} onSubmit={this.handleSubmit} style={{display:"flex"}}>
                                 <Form.Item>
                                     {getFieldDecorator('note', {
                                         rules: [{ required: true, message: 'Please input your note!' }],
-                                    })(<Input style={{ width: 150,float:"left"}} placeholder="输入学生姓名"/>)}
+                                    })(<Input style={{ width: 200,marginLeft:20}} placeholder="输入学生姓名"/>)}
                                 </Form.Item>
                                 <Form.Item>
                                     {getFieldDecorator('room_text', {
@@ -140,7 +140,7 @@ class QuestionsType extends Component {
                                     })(
                                         <Select
                                             placeholder="请选择教室号"
-                                            onChange={this.handleSelectChange} style={{ width: 200,float:"left"}} 
+                                            onChange={this.handleSelectChange} style={{ width: 200}} 
                                         >
                                             {
                                            this.props.room.map(item=>{
