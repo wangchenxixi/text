@@ -83,7 +83,7 @@ export function getGradeDatas(){
 
 export function getStudent(){
     return request({
-        url:'/manger/student/new',
+        url:'/manger/student',
         method:'GET'
     })
 }

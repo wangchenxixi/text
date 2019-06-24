@@ -42,7 +42,7 @@ function Marking (props){
       let data=getGradeViewData
     return (
         <div>
-            <p className={MarkingStyle.title}>待批班级</p>
+            <p className={MarkingStyle.title}>待批班级a </p>
             <div className={MarkingStyle.bottom}>
                 <Table columns={columns} dataSource={data} rowKey={data=>data.grade_id}/>
             </div>

@@ -3,7 +3,7 @@ import styles from './Meun.css';
 import { Menu, Dropdown, Layout , Button } from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
-import MenuView from '@/components/Menu.js'
+import MenuView from '@/components/menu.js'
 
 function ExaminationMenu(props){
     let menu = (
