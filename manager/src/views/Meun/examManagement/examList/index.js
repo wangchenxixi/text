@@ -1,97 +1,110 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import { Select, Button, Form, Table } from 'antd';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import moment from "moment"
 import './examList.scss';
-import hashHistory from "react-router"
 const { Option } = Select;
 
-function QuestionsSee(props) {
-
-    useEffect(() => {
+function examList(props){
+    useEffect(()=>{
         // 获取考试类型
         props.examType();
         // 获取课程类型
         props.subjectType();
         // 获取试卷列表
         props.examList();
-    }, [])
-    console.log("props..", props);
-
+    },[])
+    
     // 查询
     let handleSearch = (e) => {
         e.preventDefault();
-        let arr = [];
         props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                arr.push(values);
+
             }
-        });
+        });        
     }
-    let click = (props) => {
-        console.log(props)
-        hashHistory.push("http://localhost:8000/#/exam/list" + props.exam_exam_id)
+    // 计算考试时间
+    function computTime(obj) {
+        let startTime = obj.start_time*1;
+        let endTime = obj.end_time*1;
+        let newTime = endTime - startTime;
+         //计算出小时数
+        var leave1 = newTime % (24 * 3600 * 1000);   
+        var hours = Math.floor(leave1 / (3600 * 1000));
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000);     
+        var minutes = Math.floor(leave2 / (60 * 1000));
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000);    
+        var seconds = Math.round(leave3 / 1000);
+        return hours + ":" + minutes + ":" + seconds;
     }
     const columns = [
         {
-
-            title: '试卷类型',
+            title: '试卷信息',
             dataIndex: 'title',
-            key: 1
+            key: 'title',
+            render: (tags,obj) => {
+                return <div>
+                    <h4>{tags}</h4>
+                    <p><span style={{marginRight:'10px'}}>考试时间：{computTime(obj)}</span><span>{obj.number}道题</span></p>
+                    <p>作弊{obj.status}分</p>
+                </div>
+            },
         },
         {
-
             title: '班级',
-            data: "考试班级",
             dataIndex: 'grade_name',
-            key: 2,
+            key: 'grade_name',
+            render: tags => (
+                <div>
+                    <h4>考试班级</h4>
+                    {tags.map((tag,index) => {
+                        return (
+                            <p key={index} style={{margin:0}}>{tag}</p>
+                        );
+                    })}
+                </div>
+            ),
         },
         {
-
             title: '创建人',
             dataIndex: 'user_name',
-            key: 3
+            key: 'user_name',
         },
         {
-
             title: '开始时间',
+            key: 'start_time',
             dataIndex: 'start_time',
-            key: 4,
             render: (item) => {
-                console.log(item)
                 return <>
-                    <p>{new Date(item * 1).toLocaleString()}</p>
+                    <p>{new Date(item*1).toLocaleDateString()}</p>
+                    <p>{new Date(item*1).toLocaleTimeString()}</p>
                 </>
-            }
-
+            }          
         },
         {
-
             title: '结束时间',
+            key: 'end_time',
             dataIndex: 'end_time',
-            key: 5,
             render: (item) => {
                 return <>
-                    <p>{new Date(item * 1).toLocaleString()}</p>
+                    <p>{new Date(item*1).toLocaleDateString()}</p>
+                    <p>{new Date(item*1).toLocaleTimeString()}</p>
                 </>
-            }
+            }            
         },
         {
-
             title: '操作',
-            key: 6,
-            render: (props) => (
-                // <Link to={path=`/exam/detail?id=${props.exam_exam_id}`}>详情</Link>
-                <Link to={{ pathname: "/exam/detail", search: `id=${props.exam_exam_id}` }}>详情</Link>
-                // <Link to="/exam/detail">详情</Link>
-            )
+            dataIndex: '',
+            key: 'x',
+            render: () => <a style={{color:'#0139FD'}}>详情</a>,
         },
     ];
-    const { getFieldDecorator } = props.form;
+      
+    const { getFieldDecorator } = props.form; 
     return (
-
         <div className='exam-wrapper'>
             <Form onSubmit={handleSearch} className="login-form">
                 <h2 className='user-title'>试卷列表</h2>
@@ -104,12 +117,12 @@ function QuestionsSee(props) {
                                     initialValue: undefined
                                 })(
                                     <Select style={{ width: 160 }}>
-                                        {
-                                            props.examTypeData.map(item => (
-                                                <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
-                                            ))
-                                        }
-                                    </Select>
+                                    {                
+                                        props.examTypeData.map(item=>(
+                                            <Option value={item.exam_id} key={item.exam_id}>{item.exam_name}</Option>
+                                        ))
+                                    }
+                                    </Select> 
                                 )}
                             </Form.Item>
                         </div>
@@ -120,39 +133,30 @@ function QuestionsSee(props) {
                                     initialValue: undefined
                                 })(
                                     <Select style={{ width: 160 }}>
-                                        {
-                                            props.subjectTypeData.map(item => (
-                                                <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
-                                            ))
-                                        }
+                                    {                
+                                        props.subjectTypeData.map(item=>(
+                                            <Option value={item.subject_id} key={item.subject_id}>{item.subject_text}</Option>
+                                        ))
+                                    }
                                     </Select>
                                 )}
-                            </Form.Item>
+                            </Form.Item>                           
                         </div>
-                        <Button type="primary" htmlType="submit" icon="search" onClick={handleSearch}>查 询</Button>
-                    </div>
-                </div>
-                <div className="mainbox">
-                    <div className="main-top">
-                        <span>试卷列表</span>
-                        <p><Button>全部</Button><Button>进行中</Button><Button>已结束</Button></p>
-                    </div>
-                    <div>
-                        {
-                            // console.log(new Date(parseInt(1560925939536) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '))
-                            // console.log(moment(props.examlist.start_time).format('YYYY-MM-DD HH:mm:ss'))
-                        }
-                        <Table columns={columns} dataSource={props.typeList} />
+                        <Button type="primary" htmlType="submit" icon="search">查 询</Button>
                     </div>
                 </div>
             </Form>
+            <div className="exam-list-table">
+                <h4>试卷列表</h4>
+                <Table columns={columns} dataSource={props.examListData} rowKey={record =>`${record.exam_exam_id}`}></Table>
+            </div>
         </div>
     )
 }
 
 const mapStateToProps = state => {
-    console.log("state...", state)
-    return {
+    console.log("state...",state)
+    return{
         ...state.questions,
         ...state.exam
     }
@@ -160,24 +164,25 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         // 获取考试类型
-        examType() {
+        examType(){
             dispatch({
-                type: "questions/examType"
+                type:"questions/examType"
             })
         },
         // 获取课程类型
-        subjectType() {
+        subjectType(){
             dispatch({
-                type: "questions/subjectType"
+                type:"questions/subjectType"
             })
         },
         // 获取试卷列表
-        examList() {
+        examList(payload){
             dispatch({
-                type: "exam/examList"
+                type: "exam/examList",
+                payload
             })
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(QuestionsSee))
+export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(examList))

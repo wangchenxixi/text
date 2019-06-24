@@ -101,22 +101,23 @@ class AddUser extends Component{
                 <div className={userAddStyle.bottom}>
                     <div className={userAddStyle.bottom_Top}>
                         <div className={userAddStyle.bottom_Center}>
-                            <Form style={{marginLeft:'10px'}} onSubmit={this.addUser}>
+                            <Form onSubmit={this.addUser}>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange} >
                                         <Radio.Button value="horizontal">添加用户</Radio.Button>
                                         <Radio.Button value="vertical">更新用户</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
-                                <Form.Item>
+                                {
+                                    this.state.flag ? null : 
+                                    <Form.Item>
                                     {
                                         getFieldDecorator('upData')(
                                             <Select
                                                 showSearch
                                                 style={{ width: 200 }}
-                                                placeholder="Select a person"
+                                                placeholder="请选则身份id"
                                                 optionFilterProp="children"
-                                                style={this.state.flag?{display:'none'}:{display:'block'}}
                                             >
                                                 {
                                                     getUserDatas.map((item,index)=>{
@@ -126,7 +127,9 @@ class AddUser extends Component{
                                             </Select>
                                         )
                                     }
-                                </Form.Item>
+                                    </Form.Item>
+                                }
+                                
                                 <Form.Item>
                                     {
                                         getFieldDecorator('userName')(
@@ -163,7 +166,7 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item >
                                     <Button type="primary" onClick={()=>{this.state.flag?this.addUser('submit'):this.upDataUser('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.state.flag?this.addUser('sub'):this.upDataUser('sub')}}>重置</Button>
+                                    <Button type="primary" className={userAddStyle.reset} onClick={()=>{this.state.flag?this.addUser('sub'):this.upDataUser('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
@@ -183,11 +186,11 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.addEdit('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addEdit('sub')}}>重置</Button>
+                                    <Button type="primary" className={userAddStyle.reset} onClick={()=>{this.addEdit('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div>
+                        <div className={userAddStyle.bottom_Center}>
                             <Form >
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal" >
@@ -217,16 +220,16 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.addApi('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addApi('sub')}}>重置</Button>
+                                    <Button type="primary" className={userAddStyle.reset} onClick={()=>{this.addApi('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
                     </div>
                     <div className={userAddStyle.bottom_Bottom}>
-                        <div>
+                        <div className={userAddStyle.bottom_Center}>
                             <Form>
                                 <Form.Item>
-                                    <Radio.Group defaultValue="horizontal" style={{marginLeft:'10px'}}>
+                                    <Radio.Group defaultValue="horizontal">
                                         <Radio.Button value="horizontal">添加视图接口</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
@@ -236,7 +239,7 @@ class AddUser extends Component{
                                             <Select
                                                 showSearch
                                                 style={{ width: 200 }}
-                                                placeholder="请选则身份id"
+                                                placeholder="请选择已有视图"
                                                 optionFilterProp="children"
                                                 onChange={this.select}
                                             >      
@@ -251,11 +254,11 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.addView('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.addView('sub')}}>重置</Button>
+                                    <Button type="primary" className={userAddStyle.reset} onClick={()=>{this.addView('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div>
+                        <div className={userAddStyle.bottom_Center}>
                             <Form>
                             <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
@@ -267,7 +270,7 @@ class AddUser extends Component{
                                         getFieldDecorator('setID')(
                                             <Select
                                                 showSearch
-                                                placeholder="Select a person"
+                                                placeholder="请选择身份id"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -284,7 +287,7 @@ class AddUser extends Component{
                                         getFieldDecorator('setPower')(
                                             <Select
                                                 showSearch
-                                                placeholder="Select a person"
+                                                placeholder="请选择api接口权限"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -298,11 +301,11 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.power('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.power('sub')}}>重置</Button>
+                                    <Button type="primary" className={userAddStyle.reset} onClick={()=>{this.power('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>
-                        <div>
+                        <div className={userAddStyle.bottom_Center}>
                             <Form>
                                 <Form.Item>
                                     <Radio.Group defaultValue="horizontal">
@@ -314,7 +317,7 @@ class AddUser extends Component{
                                         getFieldDecorator('statusId')(
                                             <Select
                                                 showSearch
-                                                placeholder="Select a person"
+                                                placeholder="请选择身份id"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -331,7 +334,7 @@ class AddUser extends Component{
                                         getFieldDecorator('viewId')(
                                             <Select
                                                 showSearch
-                                                placeholder="Select a person"
+                                                placeholder="请选择视图权限id"
                                                 optionFilterProp="children"
                                             >
                                                 {
@@ -345,7 +348,7 @@ class AddUser extends Component{
                                 </Form.Item>
                                 <Form.Item>
                                     <Button type="primary" onClick={()=>{this.statusId('submit')}}>提交</Button>
-                                    <Button type="primary" style={{marginLeft:'10px'}} onClick={()=>{this.statusId('sub')}}>重置</Button>
+                                    <Button type="primary" className={userAddStyle.reset} onClick={()=>{this.statusId('sub')}}>重置</Button>
                                 </Form.Item>
                             </Form>
                         </div>

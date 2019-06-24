@@ -25,7 +25,9 @@ export default {
         // 添加考试
         examAddData: [],
         // 添加试题的状态
-        examAddFlag: 0
+        examAddFlag: 0,
+        // 创建试卷列表
+        createpaperList: localStorage.exam ? JSON.parse(localStorage.exam) : {},
     },
 
     // 订阅路由跳转
@@ -108,12 +110,15 @@ export default {
         // 添加考试
         *examAdd({payload},{call,put}){
             let data = yield call(examAdd,payload);
-            console.log(data);
+            // console.log('添加考试data...',data);
+            localStorage.exam = JSON.stringify(data.data)
             yield put({
                 type:'getExamAdd',
-                action:data.code === 1 ? 1 : -1
+                action:data.code === 1 ? 1 : -1,
+                data: data.data
             })
         },
+       
     },
 
     // 同步操作
@@ -167,10 +172,19 @@ export default {
             };
         },
         // 添加考试
-        getExamAdd(state, {action}){
+        getExamAdd(state, {action,data}){
+            console.log('0000...',data);
             return {
                 ...state,
-                examAddFlag: action
+                examAddFlag: action,
+                createpaperList: data
+            };
+        },
+        // 修改 examAddFlag的状态
+        examAddFlagFn(state, {action}){
+            return {
+                ...state,
+                examAddFlag: 0
             };
         }
     },

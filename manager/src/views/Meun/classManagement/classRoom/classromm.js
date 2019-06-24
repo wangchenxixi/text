@@ -16,8 +16,19 @@ class ClassRoom extends Component{
     className(type){
         this.props.form.validateFields((err, values) => {
             let { setClass } = this.props
-            console.log(values)
-            values.className?(type==='submit'?(this.setState({visible:false}),setClass(values),this.props.form.resetFields()):(this.setState({visible:false}),this.props.form.resetFields())):(message.error('请完善信息'),this.setState({visible:false}))
+            if(values.className){
+                if(type==='submit'){
+                    this.setState({visible:false})
+                    setClass(values)
+                    this.props.form.resetFields()
+                }else{
+                    this.setState({visible:false})
+                    this.props.form.resetFields()
+                }
+            }else{
+                message.error('请完善信息')
+                this.setState({visible:false})
+            }
         })
     }
     remoteClassRoom(val){
@@ -66,7 +77,7 @@ class ClassRoom extends Component{
                             </Form.Item>
                         </Form>
                     </Modal>
-                    <Table columns={columns} dataSource={data} style={{marginTop:'20px'}} rowKey={getClassRoomDataS=>{getClassRoomDataS.room_id}}/>
+                    <Table columns={columns} dataSource={data} style={{marginTop:'20px'}} />
                 </div>
             </div>
         )

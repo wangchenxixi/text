@@ -1,4 +1,4 @@
-import {exam,examadd,getDetailData,examList,details,Newstudent,Room1,details11,delstudent,studentList} from '@/services'
+import {exam,examadd,getDetailData,examList,createExamGet} from '@/services'
 export default {
     // 命名空间
     namespace: 'exam',
@@ -7,12 +7,9 @@ export default {
     state: {
         typeList:[],
         getDetailDates:[],
-        detail:[],
-        newstudent:[],
-        room:[],
-        detail1:[],
-        delst:[],
-        stuList:[]
+        // 试卷列表
+        examListData: [],
+        
     },
 
     // 订阅路由跳转
@@ -37,9 +34,8 @@ export default {
             yield call(examadd,payload);
         },
         *detail({payload},{call,put}){
-            
+            // console.log(payload)
             let data = yield call(getDetailData,payload);
-            console.log(data)
             yield put({
                 type:'getDetailsData',
                 action:data.data
@@ -48,62 +44,22 @@ export default {
         // 获取试卷列表
         *examList({payload},{call,put}){
             let data = yield call(examList,payload)
-            // console.log(data)
+            console.log(data)
             yield put({
-                type: 'save',
+                type: 'getExamList',
                 action: data.exam
             });
         },
-        *details({ payload }, { call, put }) {
-            let data = yield call(details, payload)
-            console.log(data)
-            yield put({
-                type: 'detailstData',
-                action: data.data
-            });
+        // 创建试卷到试卷列表
+        *createExamGet({params,id},{call,put}){
+            console.log(params,id)
+            let data = yield call(createExamGet,params,id);
+            console.log('创建试题.....',data);
+            // yield put({
+            //     type:'getQuestionsUpdate',
+            //     action:data.code === 1 ? 1 : -1
+            // })
         },
-        *Newstudent({ payload }, { call, put }) {
-            let data = yield call(Newstudent, payload)
-            console.log(data)
-            yield put({
-                type: 'Newstudentdata',
-                action: data.data
-            });
-        },
-        *Room1({ payload }, { call, put }) {
-            let data = yield call(Room1, payload)
-            console.log(data)
-            yield put({
-                type: 'Roomdata',
-                action: data.data
-            });
-        },
-        *details11({ payload }, { call, put }) {
-            let data = yield call(details11, payload)
-            console.log(data)
-            yield put({
-                type: 'detailstData1',
-                action: data.data
-            });
-        },
-           //删除学生
-           *delstudent({ payload }, { call, put }) {
-            let data = yield call(delstudent, payload)
-            console.log(data)
-            yield put({
-                type: 'delstudentdata',
-                action: data.data
-            });
-        },
-        *studentList({ payload }, { call, put }) {
-            let data = yield call(studentList, payload)
-            console.log(data)
-            yield put({
-                type: 'studentListdata',
-                action: data.data
-            });
-        },
-     
     },
 
     // 同步操作
@@ -120,41 +76,12 @@ export default {
                 getDetailDates: action
             };
         },
-        detailstData(state, { action }) {
+        // 获取试卷列表
+        getExamList(state, {action}){
             return {
                 ...state,
-                detail: action
+                examListData: action
             };
-        },
-        Newstudentdata(state, { action }) {
-            return {
-                ...state,
-                newstudent: action
-            };
-        },
-        Roomdata(state, { action }) {
-            return {
-                ...state,
-                room: action
-            };
-        },
-        detailstData1(state, { action }) {
-            return {
-                ...state,
-                detail1: action
-            };
-        },
-        delstudentdata(state, { action }) {
-            return {
-                ...state,
-                delst: action
-            };
-        },
-        studentListdata(state, { action }) {
-            return {
-                ...state,
-                stuList: action
-            };
-        },
+        }
     },
 };

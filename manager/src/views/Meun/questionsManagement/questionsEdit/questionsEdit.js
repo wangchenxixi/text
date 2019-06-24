@@ -9,6 +9,7 @@ function questionsAdd(props){
     console.log(props);
     // 试题id
     let questions_id = props.match.params.id
+    console.log(props.match)
     useEffect(()=>{
         // 获取用户信息
         props.userInfo();

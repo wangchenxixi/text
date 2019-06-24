@@ -12,25 +12,47 @@
 .bottom{
     width: 95%;
     height: auto;
-    background: #fff;
     margin: 0 auto;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 .bottom_Top,.bottom_Bottom{
     display: flex;
-    width: 100%;
-    height: auto;
-    justify-content: space-around;
-    border-bottom:solid #ccc 1px;
-    padding: 20px;
-    box-sizing: border-box;
+    flex-wrap: wrap;
+    
 }
 .bottom_Center{
-    width: 33.3%;
-    height: 100%;
-    padding: 0 30px;
-    box-sizing: border-box;
+    width:33.3%;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+}
+.reset{
+    margin-left:10px;
+    background: #fff;
+    color:#666;
+    background-color: #fff;
+    border-color: #d9d9d9;
+    &:hover{
+        border:1px solid #1890ff;
+        color:#1890ff;
+        background-color: #fff;
+    }
+}
+:global{
+    .ant-form-item{
+        margin-bottom:15px;
+    }
+    .ant-radio-button-wrapper:first-child:last-child{
+        border-radius:0;
+    }
+    .ant-radio-button-wrapper:first-child{
+        border-radius:0;
+    }
+    .ant-radio-button-wrapper:last-child{
+        border-radius:0;
+    }
 }

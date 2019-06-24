@@ -77,56 +77,13 @@ export function examList(params){
         params
     })
 }
-// 获取试卷详情（教师端）接口
-export function details(params) {
-    // console.log(params)
-    return request({
-        url: `/exam/exam/${params}`,
-        method: 'GET'
-    })
-}
-//获取所有没有分班的学生接口
-export function Newstudent(params) {
-    return request({
-        url: '/manger/student',
-        method: 'GET',
-        params
-    })
-}
-//获取全部教室
-export function Room1(params) {
-    return request({
-        url: '/manger/room',
-        method: 'GET',
-        params
-    })
-}
-//全部班级
-export function details11(params) {
-    return request({
-        url: '/manger/grade/new',
-        method: 'GET',
-        params
-    })
-}
-//删除学生接口
-export function delstudent(params) {
-    console.log(params);
-    return request({
-        data:{
-            student_id:params
-        },
-        url: `/manger/student/:id=>${params}`,
-        method: 'DELETE',
-        params
-    })
-}
-//获取学生试卷列表
-export function studentList(params) {
-    return request({
-        url: '/exam/student',
-        method: 'GET',
-        params
-    })
-}
 
+// 创建试卷
+export function createExamGet(params,id){
+    console.log(params,id)
+    return request({
+        url:'/exam/exam/'+id,
+        method:'PUT',
+        data:params
+    })
+}
