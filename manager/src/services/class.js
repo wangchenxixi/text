@@ -87,7 +87,14 @@ export function getStudent(){
         method:'GET'
     })
 }
-
+//获取所有没有分班的学生接口
+export function getStudentNew(params){
+    console.log(params)
+    return request({
+        url:'/manger/student/new',
+        method:'GET'
+    })
+}
 export function remoteStuden(params){
     return request({
         data:{
@@ -98,12 +105,12 @@ export function remoteStuden(params){
     })
 }
 
-export function getClassStued(params){
-    return request({
-        params:{
-            grade_id:params
-        },
-        url:'exam/student',
-        method:'GET'
-    })
-}
+// export function getClassStued(params){
+//     return request({
+//         params:{
+//             grade_id:params
+//         },
+//         url:'exam/student',
+//         method:'GET'
+//     })
+// }

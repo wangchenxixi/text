@@ -1,0 +1,173 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas合成</title>
+</head>
+<style>
+    #h {
+        text-align: center;
+    }
+
+    #h canvas {
+        border-radius: 10px;
+    }
+</style>
+
+<body>
+    <div id="h">
+        <input type="file">
+        <img src="" alt="" style="display:none">
+        <canvas width="340" height="500" id="myCanvas"></canvas>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var ele = document.querySelector('input');
+        ele.onchange = function (e) {
+            let files = e.target.files;
+            var reader = new FileReader();
+            reader.onload = function () {
+                console.log('result...', this.result);
+                document.querySelector('img').src = this.result;
+                axios({
+                    method: 'post',
+                    url: 'http://123.206.55.50:11000/upload_base64',
+                    data: { base64: this.result }
+                }).then(body => {
+                    console.log('body...', body);
+                    img.src = body.data.base64;
+                }).catch(e => {
+                    console.log('e..', e);
+                })
+                var bg = {
+                    width: 500,
+                    height: 500,
+                    src: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561454841111&di=c49fe730a9b4d47d8f43dfc6eb9681ca&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F03%2F20170603173759_PMXGS.thumb.700_0.jpeg"
+                }
+
+                var userInfo = {
+                    width: 270,
+                    height: 270,
+                    src: this.result
+                }
+                console.log(userInfo);
+                var image = new Image();
+                var image1 = new Image();
+                var image2 = new Image();
+                image.src = bg.src;
+                // image1.src = code.src;
+                image2.src = userInfo.src;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                image.onload = function () {
+                    ctx.drawImage(image, 0, 0, bg.width, bg.height);
+                    // ctx.drawImage(image1, 250, 100, code.width, code.height);
+                    ctx.save();
+                    ctx.arc(185, 185, 70, 0, Math.PI * 2, false);
+                    ctx.clip();
+                    ctx.drawImage(image2, 50, 50, userInfo.width, userInfo.height); // 在刚刚裁剪的园上画图
+                    ctx.restore(); // 还原状态
+                    ctx.font = "36px Georgia";
+                    ctx.fillStyle = '#ffffff';
+                    // ctx.fillText(userInfo.name, 270, 250);
+                    var mainImg = new Image();
+                    var imgSrc = canvas.toDataURL('image/png')
+                    mainImg.src = imgSrc;
+
+                }
+            }
+
+            reader.readAsDataURL(files[0]);
+
+
+
+
+            // var code = {
+            //     width: 100,
+            //     height: 100,
+            //     src: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562029832&di=8f4052a12b8808247e670892662da6b3&imgtype=jpg&er=1&src=http%3A%2F%2Fyanshi.sucaihuo.com%2Fjquery%2F35%2F3551%2Fbig.jpg"
+            // }
+
+
+        }
+
+    </script>
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件上传</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        canvas {
+            width: 512px;
+            height: 288px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <input type="file">
+    <img src="" alt="">
+    <script>
+        var cnavas = document.getElementById('canvas'),
+            ctx = canvas.getContext('2d');
+
+        // 1.设置画布的宽高
+        canvas.width = 512;
+        canvas.height = 288;
+        // 2.绘制背景图
+        var img = new Image();
+        axios({
+            method: 'post',
+            url: 'http://123.206.55.50:11000/tobase64',
+            data: { url: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2275017224,2105866397&fm=26&gp=0.jpg' }
+        }).then(body => {
+            console.log('body...', body);
+            img.src = body.data.data.base64;
+        }).catch(e => {
+            console.log('e..', e);
+        })
+        // img.src = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562050630&di=89f94270963dbfa38de1d0eea22bb5f0&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140103%2F20140103212227-1956389668.jpg';
+
+        img.onload = function () {
+            ctx.drawImage(img, 0, 0, 500, 500, 0, 0, 512, 288);
+        }
+        // 3.监听图片上传
+        var ele = document.querySelector('input');
+        ele.onchange = function (e) {
+
+            let files = e.target.files;
+            // 创建一个fileReader       
+            for (let i = 0, len = files.length; i < len; i++) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    // console.log('result...', this.result);
+                    // 4.绘制上传的图片
+                    var avatar = new Image();
+                    avatar.src = this.result;
+                    avatar.onload = function () {
+                        ctx.drawImage(avatar, 20, 20, 300, 300, 235, 80, 80, 80);
+                        // 5.合成一张图片
+                        var result = canvas.toDataURL('jpg', 0.8);
+                        console.log('result...', result);
+
+                    }
+                }
+                reader.readAsDataURL(files[i]);
+            }
+        }
+    </script>
+</body>
+
+</html>

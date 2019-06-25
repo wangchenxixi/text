@@ -108,6 +108,7 @@ function examList(props){
         <div className='exam-wrapper'>
             <Form onSubmit={handleSearch} className="login-form">
                 <h2 className='user-title'>试卷列表</h2>
+
                 <div className='bottom'>
                     <div className='top_search'>
                         <div className='Bottom_babel'>
@@ -147,8 +148,13 @@ function examList(props){
                 </div>
             </Form>
             <div className="exam-list-table">
-                <h4>试卷列表</h4>
-                <Table columns={columns} dataSource={props.examListData} rowKey={record =>`${record.exam_exam_id}`}></Table>
+                <h4 style={{float:"left"}}>试卷列表</h4>
+                <div style={{marginRight:30}}>
+                    <div className="left"> <Button>全部</Button></div>
+                    <div className="left"><Button>进行中</Button></div>
+                    <div className="left"><Button>已结束</Button></div>
+                </div>
+                <Table columns={columns} dataSource={props.examListData} rowKey={record =>`${record.exam_exam_id}`} style={{marginTop:20}}></Table>
             </div>
         </div>
     )

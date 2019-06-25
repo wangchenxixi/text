@@ -55,7 +55,8 @@ class ClassRoom extends Component{
               ),
             },
           ];
-          const data = getClassRoomDataS
+          const data = getClassRoomDataS;
+          console.log("data....",data)
         return (
             <div className={classRoomStyle.wrap}>
                 <p className={classRoomStyle.title}>教室管理</p>
