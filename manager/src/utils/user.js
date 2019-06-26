@@ -12,3 +12,7 @@ export function setToken(val){
     // expires 设置有效期7天
     Cookie.set(key, val, { expires: 7 })
 }
+// 删除token
+export function removeToken(){
+    Cookie.remove(key);
+  }

@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Meun.css';
-import { Menu, Dropdown, Layout, Button } from 'antd';
+import { Menu, Dropdown, Layout, Button ,Upload, Icon, message} from 'antd';
 import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva'
 import MenuView from '@/components/menu.js'
-
+import {removeToken} from "../../utils/user";
+let click=(props)=>{
+    removeToken()
+    // props.logout();
+    console.log(props);
+    props.history.push('/')
+}
 function ExaminationMenu(props) {
+    useEffect(()=>{
+           
+       
+    })
     let menu = (
         <Menu>
             <Menu.Item key="1" onClick={() => {}}>个人中心</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
-            <Menu.Item key="4">退出登录</Menu.Item>
+            <Menu.Item key="5">图片上传</Menu.Item>
+            <Menu.Item key="4" onClick={() => {click(props)}}>退出登录</Menu.Item>
+            {/* <Redirect from="/" to="/8000" /> */}
         </Menu>
     );
     const { Header, Content } = Layout;
@@ -69,17 +81,22 @@ function ExaminationMenu(props) {
     )
 }
 const mapStateToProps = state => {
-    // console.log('main..state..',state)
+    console.log('main..state..',state)
     return {
         ...state.user,
-        locale: state.global.locale
+        locale: state.global.locale,
+        ...state.logout
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         changeLocal(payload) {
             dispatch({ type: 'global/changeLocale', payload })
-        }
+        },
+        logout(payload){
+            dispatch({ type: 'user/logout', payload });
+            
+        },
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ExaminationMenu)

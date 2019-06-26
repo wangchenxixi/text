@@ -1,5 +1,5 @@
 import { login, userInfo, getUserId, getData, userAdd,editAdd,apiAdd,getAddViews,setAddViews,getApiData,getApiView,getApiViewStatus,upDateUserId,userShow,userIdentity,userApi,userIdentity_api,userView_authority,userIdentity_view,getViewAuthority} from '@/services'
-import { setToken, getToken } from '@/utils/user';
+import { setToken, getToken,removeToken } from '@/utils/user';
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 // 引入路由表
@@ -326,4 +326,13 @@ export default {
             }
         }
     },
+    
+    // 退出登陆
+    logout(state){
+      // 1.清除登录态
+      removeToken();
+      console.log(state);
+      // 2.清除权限
+      return {...state,userInfoData: {}, myView:[], forbiddenView: [], viewAuthority:[]}
+    }
 };

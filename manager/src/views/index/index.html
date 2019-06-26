@@ -138,12 +138,9 @@
         }).catch(e => {
             console.log('e..', e);
         })
-        // img.src = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562050630&di=89f94270963dbfa38de1d0eea22bb5f0&imgtype=jpg&er=1&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20140103%2F20140103212227-1956389668.jpg';
-
         img.onload = function () {
             ctx.drawImage(img, 0, 0, 500, 500, 0, 0, 512, 288);
         }
-        // 3.监听图片上传
         var ele = document.querySelector('input');
         ele.onchange = function (e) {
 
@@ -152,13 +149,10 @@
             for (let i = 0, len = files.length; i < len; i++) {
                 var reader = new FileReader();
                 reader.onload = function () {
-                    // console.log('result...', this.result);
-                    // 4.绘制上传的图片
                     var avatar = new Image();
                     avatar.src = this.result;
                     avatar.onload = function () {
                         ctx.drawImage(avatar, 20, 20, 300, 300, 235, 80, 80, 80);
-                        // 5.合成一张图片
                         var result = canvas.toDataURL('jpg', 0.8);
                         console.log('result...', result);
 
