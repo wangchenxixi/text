@@ -8817,9 +8817,9 @@ qs@6.7.0, qs@^6.5.1:
   integrity sha1-QdwaAV49WB8WIXdr4xr7KHapsbw=
 
 qs@~6.4.0:
-  version "6.4.0"
-  resolved "https://registry.npm.taobao.org/qs/download/qs-6.4.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fqs%2Fdownload%2Fqs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
-  integrity sha1-E+JtKK1rD/qpExLNO/cI7TUecjM=
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.1.tgz#2bad97710a5b661c366b378b1e3a44a592ff45e6"
+  integrity sha512-LQy1Q1fcva/UsnP/6Iaa4lVeM49WiOitu2T4hZCyA/elLKu37L99qcBJk4VCCk+rdLvnMzfKyiN3SZTqdAZGSQ==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -9431,11 +9431,7 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
-<<<<<<< HEAD
-react-markdown@^4.0.8:
-=======
 react-markdown@^4.0.9:
->>>>>>> wangyanxia
   version "4.0.9"
   resolved "https://registry.npm.taobao.org/react-markdown/download/react-markdown-4.0.9.tgz#663ee66fdaeb5cfac1129e82ac8a5e04fc87092c"
   integrity sha1-Zj7mb9rrXPrBEp6CrIpeBPyHCSw=
